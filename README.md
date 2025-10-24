@@ -40,7 +40,7 @@ Then open [http://localhost:5173](http://localhost:3000) (or the port shown in y
 - [ ] User profiles and authentication  
 - [ ] Trading and wishlist sharing  
 - [ ] Card scanning (via image recognition)  
-- [ ] Mobile app version  
+- [ ] Yu Gi Oh support (and other TCGs) 
 
 ---
 
