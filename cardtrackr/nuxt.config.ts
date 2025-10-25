@@ -7,5 +7,12 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/image',
     '@nuxtjs/tailwindcss'
-  ]
+  ],
+  fonts: {
+    google: {
+      families: {
+        Inter: true,
+      }
+    }
+  }
 })

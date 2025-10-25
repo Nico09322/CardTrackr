@@ -27,16 +27,24 @@
 <template>
 
     <div class="flex justify-center">
-        <div class="fixed w-2/3 h-[5rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[1rem] rounded-lg flex flex-row items-center place-content-between pr-[3rem] pl-[3rem]">
+        <div class="fixed w-2/3 h-[5rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[1rem] rounded-lg flex flex-row items-center place-content-between pr-[3rem] pl-[3rem] z-50">
             <div class="flex flex-row items-center gap-[0.5rem]">
                 <img :src="logo" class="w-[2rem]"/>
-                <h1 class="">CardTrackr</h1>
+                <h1 class="font-bold">CardTrackr</h1>
             </div>
             <div class="flex flex-row gap-[3rem] cursor-pointer select-none">
-                <div class="text-neutral-400 hover:text-red-500" @mouseenter="growText" @mouseleave="shrinkText">Home</div>
-                <div class="text-neutral-400 hover:text-red-500" @mouseenter="growText" @mouseleave="shrinkText">Browse</div>
-                <div class="text-neutral-400 hover:text-red-500" @mouseenter="growText" @mouseleave="shrinkText">Wunschliste</div>
-                <div class="text-neutral-400 hover:text-red-500" @mouseenter="growText" @mouseleave="shrinkText">Meine Karten</div>
+                <NuxtLink to="/" v-slot="{ isActive }" @mouseenter="growText" @mouseleave="shrinkText">
+                    <span :class="[isActive ? 'text-neutral-700' : 'text-neutral-400', 'hover:text-red-500']" >Home</span>
+                </NuxtLink>
+                <NuxtLink to="/browse" v-slot="{ isActive }" @mouseenter="growText" @mouseleave="shrinkText">
+                    <span :class="[isActive ? 'text-neutral-700' : 'text-neutral-400', 'hover:text-red-500']" >Browse</span>
+                </NuxtLink>
+                <NuxtLink to="/wish" v-slot="{ isActive }" @mouseenter="growText" @mouseleave="shrinkText">
+                    <span :class="[isActive ? 'text-neutral-700' : 'text-neutral-400', 'hover:text-red-500']" >Wunschliste</span>
+                </NuxtLink>
+                <NuxtLink to="/cards" v-slot="{ isActive }" @mouseenter="growText" @mouseleave="shrinkText">
+                    <span :class="[isActive ? 'text-neutral-700' : 'text-neutral-400', 'hover:text-red-500']" >Meine Karten</span>
+                </NuxtLink>
             </div>
         </div>
     </div>
