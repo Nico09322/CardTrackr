@@ -6,6 +6,7 @@
 
 
     const tcgdex = new TCGdex('en');
+    tcgdex.setCacheTTL(0);
 
     const renderData= ref(null);
     const cardName = ref("");
@@ -19,7 +20,7 @@
         { code: 'jungle', name: 'Jungle' },
         { code: 'fossil', name: 'Fossil' },
         { code: 'base2', name: 'Base Set 2' },
-        { code: 'teamrocket', name: 'Team Rocket' },
+        { code: 'team%20rocket', name: 'Team Rocket' },
         { code: 'gym1', name: 'Gym Heroes' },
         { code: 'gym2', name: 'Gym Challenge' },
         { code: 'neo1', name: 'Neo Genesis' },
@@ -62,73 +63,79 @@
         { code: 'hgss3', name: 'H&S Undaunted' },
         { code: 'hgss4', name: 'H&S Triumphant' },
         { code: 'col', name: 'Call of Legends' },
-        { code: 'bw1', name: 'Black & White' },
-        { code: 'bw2', name: 'Emerging Powers' },
-        { code: 'bw3', name: 'Noble Victories' },
-        { code: 'bw4', name: 'Next Destinies' },
-        { code: 'bw5', name: 'Dark Explorers' },
-        { code: 'bw6', name: 'Dragons Exalted' },
-        { code: 'bw7', name: 'Boundaries Crossed' },
-        { code: 'bw8', name: 'Plasma Storm' },
-        { code: 'bw9', name: 'Plasma Freeze' },
-        { code: 'bw10', name: 'Plasma Blast' },
+        { code: 'bw1', name: 'BW Black & White' },
+        { code: 'bw2', name: 'BW Emerging Powers' },
+        { code: 'bw3', name: 'BW Noble Victories' },
+        { code: 'bw4', name: 'BW Next Destinies' },
+        { code: 'bw5', name: 'BW Dark Explorers' },
+        { code: 'bw6', name: 'BW Dragons Exalted' },
+        { code: 'bw7', name: 'BW Boundaries Crossed' },
+        { code: 'bw8', name: 'BW Plasma Storm' },
+        { code: 'bw9', name: 'BW Plasma Freeze' },
+        { code: 'bw10', name: 'BW Plasma Blast' },
         { code: 'bw11', name: 'Legendary Treasures' },
         { code: 'xy1', name: 'XY' },
-        { code: 'xy2', name: 'Flashfire' },
-        { code: 'xy3', name: 'Furious Fists' },
-        { code: 'xy4', name: 'Phantom Forces' },
-        { code: 'xy5', name: 'Primal Clash' },
-        { code: 'xy6', name: 'Roaring Skies' },
-        { code: 'xy7', name: 'Ancient Origins' },
-        { code: 'xy8', name: 'BREAKthrough' },
-        { code: 'xy9', name: 'BREAKpoint' },
+        { code: 'xy2', name: 'XY Flashfire' },
+        { code: 'xy3', name: 'XY Furious Fists' },
+        { code: 'xy4', name: 'XY Phantom Forces' },
+        { code: 'xy5', name: 'XY Primal Clash' },
+        { code: 'xy6', name: 'XY Roaring Skies' },
+        { code: 'xy7', name: 'XY Ancient Origins' },
+        { code: 'xy8', name: 'XY BREAKthrough' },
+        { code: 'xy9', name: 'XY BREAKpoint' },
         {code: 'generations', name: 'Generations'},
-        { code: 'xy10', name: 'Fates Collide' },
-        { code: 'xy11', name: 'Steam Siege' },
-        { code: 'xy12', name: 'Evolutions' },
+        { code: 'xy10', name: 'XY Fates Collide' },
+        { code: 'xy11', name: 'XY Steam Siege' },
+        { code: 'xy12', name: 'XY Evolutions' },
         { code: 'sm1', name: 'Sun & Moon' },
-        { code: 'sm2', name: 'Guardians Rising' },
-        { code: 'sm3', name: 'Burning Shadows' },
+        { code: 'sm2', name: 'SM Guardians Rising' },
+        { code: 'sm3', name: 'SM Burning Shadows' },
         {code: 'shining%20legends', name: 'Shining Legends'},
-        { code: 'sm4', name: 'Crimson Invasion' },
-        { code: 'sm5', name: 'Ultra Prism' },
-        { code: 'sm6', name: 'Forbidden Light' },
-        { code: 'sm7', name: 'Celestial Storm' },
+        { code: 'sm4', name: 'SM Crimson Invasion' },
+        { code: 'sm5', name: 'SM Ultra Prism' },
+        { code: 'sm6', name: 'SM Forbidden Light' },
+        { code: 'sm7', name: 'SM Celestial Storm' },
         {code: 'dragon%20majesty', name: 'Dragon Majesty'},
-        { code: 'sm8', name: 'Lost Thunder' },
-        { code: 'sm9', name: 'Team Up' },
+        { code: 'sm8', name: 'SM Lost Thunder' },
+        { code: 'sm9', name: 'SM Team Up' },
         {code: 'detective%20pikachu', name: 'Detective Pikachu'},
-        { code: 'sm10', name: 'Unbroken Bonds' },
-        { code: 'sm11', name: 'Unified Minds' },
+        { code: 'sm10', name: 'SM Unbroken Bonds' },
+        { code: 'sm11', name: 'SM Unified Minds' },
         {code: 'hidden%20fates', name: 'Hidden Fates'},
-        { code: 'sm12', name: 'Cosmic Eclipse' },
-        { code: 'swsh1', name: 'Sword & Shield' },
-        { code: 'swsh2', name: 'Rebel Clash' },
-        { code: 'swsh3', name: 'Darkness Ablaze' },
+        { code: 'sm12', name: 'SM Cosmic Eclipse' },
+        { code: 'swsh1', name: 'SWSH Sword & Shield' },
+        { code: 'swsh2', name: 'SWSH Rebel Clash' },
+        { code: 'swsh3', name: 'SWSH Darkness Ablaze' },
         {code: 'champions%20path', name:'Champions Path'},
-        { code: 'swsh4', name: 'Vivid Voltage' },
+        { code: 'swsh4', name: 'SWSH Vivid Voltage' },
         {code: 'shining%20fates', name:'Shining Fates'},
-        { code: 'swsh5', name: 'Battle Styles' },
-        { code: 'swsh6', name: 'Chilling Reign' },
-        { code: 'swsh7', name: 'Evolving Skies' },
+        { code: 'swsh5', name: 'SWSH Battle Styles' },
+        { code: 'swsh6', name: 'SWSH Chilling Reign' },
+        { code: 'swsh7', name: 'SWSH Evolving Skies' },
         {code: 'celebrations', name:'Celebrations'},
-        { code: 'swsh8', name: 'Fusion Strike' },
-        { code: 'swsh9', name: 'Brilliant Stars' },
-        { code: 'swsh10', name: 'Astral Radiance' },  
-        { code: 'swsh11', name: 'Lost Origin' },
-        { code: 'swsh12', name: 'Silver Tempest' },
-        { code: 'swsh12.5', name: 'Crown Zenith' },
-        { code: 'sv1', name: 'Scarlet & Violet' },
-        { code: 'sv2', name: 'Paldea Evolved' },
-        { code: 'sv3', name: 'Obsidian Flames' },
-        { code: 'sv151', name: 'Scarlet & Violet 151' },
-        { code: 'sv4', name: 'Paradox Rift' },
-        {code: 'sv4.5', name: 'Paldean Fates'},
-        { code: 'sv5', name: 'Temporal Forces' },
-        { code: 'sv6', name: 'Twilight Masquerade' },
-        { code: 'sv7', name: 'Shrouded Fable' },
-        { code: 'sv8', name: 'Stellar Crown' },
-        {code: 'me1', name: 'Mega Evolution'}
+        { code: 'swsh8', name: 'SWSH Fusion Strike' },
+        { code: 'swsh9', name: 'SWSH Brilliant Stars' },
+        { code: 'swsh10', name: 'SWSH Astral Radiance' },  
+        { code: 'swsh11', name: 'SWSH Lost Origin' },
+        { code: 'swsh12', name: 'SWSH Silver Tempest' },
+        { code: 'swsh12.5', name: 'SWSH Crown Zenith' },
+        { code: 'scarlet%20&%20violet', name: 'Scarlet & Violet' },
+        { code: 'paldea%20evolved', name: 'SV Paldea Evolved' },
+        { code: 'obsidian%20flames', name: 'SV Obsidian Flames' },
+        { code: '151', name: 'SV 151' },
+        { code: 'paradox%20rift', name: 'SV Paradox Rift' },
+        {code: 'paldean%20fates', name: 'SV Paldean Fates'},
+        { code: 'temporal%20forces', name: 'SV Temporal Forces' },
+        { code: 'twilight%20masquerade', name: 'SV Twilight Masquerade' },
+        { code: 'shrouded%20fable', name: 'SV Shrouded Fable' },
+        { code: 'stellar%20crown', name: 'SV Stellar Crown' },
+        {code: 'surging%20sparks', name: 'SV Surging Sparks'},
+        {code: 'prismatic%20evolutioins', name: 'SV Prismatic Evolutions'},
+        {code: 'journey%20together', name: 'SV Journey Together'},
+        {code: 'destined%20rivals', name: 'SV Destined Rivals'},
+        {code: 'black%20bolt', name: 'SV Black Bolt'},
+        {code: 'white%20flare', name:'SV White Flare'},
+        {code: 'mega%20evolution', name: 'Mega Evolution'}
     ]
 
     const selectedSet = ref(sets[0])
@@ -165,23 +172,23 @@
     })
 
 
-    const search = async (name, selectedSet) => {    
-        if(name && selectedSet.code != null) {
-            const data = await tcgdex.card.list(new Query()
-                .like('name', name)
-                .equal('set', selectedSet)
-            );
-            renderData.value = { cards: data.cards || data }; 
-           
-        } else if (selectedSet) {
-            const set = await tcgdex.fetch('sets', selectedSet.code);
-            renderData.value = { cards: set.cards || data }; 
-        } else if (name) {
+    const search = async (name, selectedSet) => {
+
+        if (name) {
             const data = await tcgdex.card.list(new Query().like('name', name));
             renderData.value = { cards: data.cards || data }; 
+            return;
         }
 
-        console.log(renderData.value);
+        if (selectedSet && selectedSet.code !== 'none') {
+            const set = await tcgdex.fetch('sets', selectedSet.code);
+            renderData.value = { cards: set.cards || set }; 
+            return;
+        }
+
+        if(!name && selectedSet.code === null){
+            return;
+        }
     }
 
     const filteredSets = computed(() => 
@@ -197,13 +204,14 @@
 <template>
     <div class="flex flex-col items-center">
         <div class="w-[80%] h-[10rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[10rem] rounded-lg p-[1rem] z-10">
-            <div class="text-neutral-300 font-bold text-[1.5rem] mb-[1rem]">Karten suchen{{ selectedSet }}</div>
+            <div class="text-neutral-300 font-bold text-[1.5rem] mb-[1rem]">Karten suchen</div>
             <div class="flex flex-row gap-[1rem]">
                 <input v-model="cardName" type="text" placeholder="Name" class="bg-neutral-100 rounded-lg p-[0.5rem] h-[3rem] outline-none border-[0.15rem] border-neutral-200 focus:border-red-500"/>
-                <div>
+                <div :class="[cardName ? 'opacity-30 pointer-events-none' : 'opacity-100']">
                     <Combobox v-model="selectedSet">
                         <div class="bg-neutral-100 h-[3rem] text-neutral-500 pl-[1rem] pt-[0.5rem] pr-[1rem] rounded-lg border-neutral-200 border-[0.15rem] ">
-                            <ComboboxInput @change="query = $event.target.value" class="bg-neutral-100 outline-none"/>
+                            <ComboboxInput @change="query = $event.target.value" :display-value="(set) => set.name" class="bg-neutral-100 outline-none"/>
+                            
                             <ComboboxButton>
                                 <div  class="hover:bg-red-500 w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-lg group duration-75">
                                     <Icon name="fluent:chevron-up-down-24-filled" class="text-neutral-500 group-hover:bg-white duration-75"/>
@@ -214,7 +222,7 @@
                         <div class="bg-neutral-100 mt-[0.5rem] rounded-lg max-h-[15rem] overflow-auto text-neutral-500">
                             <ComboboxOptions>
                                 <div>
-                                    <ComboboxOption v-for="set in filteredSets" :key="set" :value="set" class=" hover:text-neutral-700 hover:bg-neutral-200 rounded-lg h-[1.75rem] pl-[0.5rem]" @click="dropDown = false">
+                                    <ComboboxOption v-for="set in filteredSets" :key="set.code" :value="set" class=" hover:text-neutral-700 hover:bg-neutral-200 rounded-lg h-[1.75rem] pl-[0.5rem]" @click="dropDown = false">
                                         {{ set.name }}
                                     </ComboboxOption>
                                 </div>
