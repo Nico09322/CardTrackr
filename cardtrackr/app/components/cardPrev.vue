@@ -50,7 +50,7 @@
 
 <template>
 
-    <div class="w-[20rem] h-[28.5rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] rounded-lg p-[1rem] border-[0.15rem] border-white hover:border-red-500">
+    <div class="w-[20rem] h-[28.5rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] rounded-lg p-[1rem] border-[0.2rem] border-white hover:border-red-500">
         <div>
             <div class="flex flex-row gap-1">
                 <div class="font-semibold text-neutral-600">{{ displayName }}</div>

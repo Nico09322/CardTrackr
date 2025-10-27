@@ -3,8 +3,6 @@
     import logo from "@/assets/CardTrackr.svg"
     import { gsap } from "gsap";
 
-    const navText = ref(null)
-
     const growText = (e) => {
         gsap.to(e.target, {
             scale: 1.1,
