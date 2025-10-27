@@ -23,11 +23,5 @@ export default defineNuxtConfig({
       callback: '/confirm',
       exclude: ['/'],
     }
-  },
-  // Remove the vite config entirely or use this:
-  vite: {
-    optimizeDeps: {
-      exclude: ['@supabase/supabase-js']
-    }
   }
 })
