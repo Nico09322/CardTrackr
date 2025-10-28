@@ -26,8 +26,6 @@
     const error = ref(false);
     const isWishlisted = ref(false);
 
-    console.log(props.wishlist)
-
     onMounted(() => {
         url.value = props.image + '/low.jpg';
         displayName.value = props.name;
@@ -72,7 +70,7 @@
         const wishCard = await tcgdex.card.get(props.globalID);
         console.log(wishCard);
         const img = wishCard.image + '/low.jpg'
-        const icon = wishCard.set.symbol + '/low.jpg';
+        const icon = wishCard.set.symbol + '.png';
         try {
             const {error} = await client
                 .from('wishlist')
@@ -105,12 +103,12 @@
 
             </div>
             <div class="flex justify-center mt-[1rem]">
-                <img v-if="!error" @error="error = true" :src="url" />
+                <img v-if="!error" @error="error = true" :src="url" class="rounded-lg"/>
                 <div v-else class="bg-neutral-200 w-[14.5rem] h-[21rem] rounded-lg animate-pulse"></div>
             </div>
             <div class="mt-[1rem] flex flex-row gap-[0.5rem] justify-center">
-                <div :class="[isWishlisted === false ? 'w-[6rem] h-[2rem] bg-red-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none' : 'opacity-30 pointer-events-none w-[6rem] h-[2rem] bg-red-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none']" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="wishCard">Wünschen</div>
-                <div class="w-[6rem] h-[2rem] bg-neutral-400 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText">Hinzufügen</div>            
+                <div :class="[isWishlisted === false ? 'w-[6rem] h-[2rem] bg-red-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none' : 'opacity-30 pointer-events-none w-[6rem] h-[2rem] bg-red-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none']" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="wishCard">Wishlist</div>
+                <div class="w-[6rem] h-[2rem] bg-neutral-400 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText">Collect</div>            
             </div>
 
         </div>

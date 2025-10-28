@@ -217,7 +217,7 @@
 <template>
     <div class="flex flex-col items-center">
         <div class="w-[80%] h-[10rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[10rem] rounded-lg p-[1rem] z-10">
-            <div class="text-neutral-300 font-bold text-[1.5rem] mb-[1rem]">Karten suchen</div>
+            <div class="text-neutral-300 font-bold text-[1.5rem] mb-[1rem]">Find cards</div>
             <div class="flex flex-row gap-[1rem]">
                 <input v-model="cardName" type="text" placeholder="Name" class="bg-neutral-100 rounded-lg p-[0.5rem] h-[3rem] outline-none border-[0.15rem] border-neutral-200 focus:border-red-500"/>
                 <div :class="[cardName ? 'opacity-30 pointer-events-none' : 'opacity-100']">
@@ -245,7 +245,7 @@
 
                     </Combobox>
                 </div>
-                <div class="bg-red-500 h-[3rem] text-white w-[6rem] p-[0.5rem] flex justify-center items-center rounded-lg select-none cursor-pointer" @click="search(cardName, selectedSet)" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText">Suchen</div>
+                <div class="bg-red-500 h-[3rem] text-white w-[6rem] p-[0.5rem] flex justify-center items-center rounded-lg select-none cursor-pointer" @click="search(cardName, selectedSet)" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText">Search</div>
             </div>
         </div>
         <div class="flex gap-[1rem] flex-wrap content-start items-center justify-center mt-[3rem] w-[80%]">
