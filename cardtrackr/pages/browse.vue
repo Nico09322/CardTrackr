@@ -4,6 +4,8 @@
     import {Combobox,ComboboxInput,ComboboxOptions,ComboboxOption, ComboboxButton,} from '@headlessui/vue'
     import { gsap } from "gsap";
 
+    const client = useSupabaseClient();
+    const user = useSupabaseUser();
 
     const tcgdex = new TCGdex('en');
     tcgdex.setCacheTTL(0);
@@ -11,6 +13,7 @@
     const renderData= ref(null);
     const cardName = ref("");
     const query = ref("")
+    const wishlist = ref(null)
     
 
 
@@ -168,8 +171,20 @@
         renderData.value = []
         const data = await tcgdex.random.set();
         renderData.value = data;
+        fetchCards();
+        
 
     })
+
+    const fetchCards = async () => {
+        try {
+            const {data, error} = await client.from('wishlist').select('*').eq('user_id', user.value.sub);
+            if (error) throw error
+            wishlist.value = data || [];
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
 
     const search = async (name, selectedSet) => {
@@ -196,8 +211,6 @@
             return set.name.toLocaleLowerCase().includes(query.value.toLocaleLowerCase())
         })
     )
-
-
 
 </script>
 
@@ -236,7 +249,7 @@
             </div>
         </div>
         <div class="flex gap-[1rem] flex-wrap content-start items-center justify-center mt-[3rem] w-[80%]">
-            <CardPrev v-for="card in renderData?.cards || []" :key="card.id" :name="card.name" :image="card.image" :id="card.localId"/>
+            <CardPrev v-if="wishlist" v-for="card in renderData?.cards || []" :key="card.id" :name="card.name" :image="card.image" :id="card.localId" :globalID="card.id" :wishlist="wishlist"/>
 
         </div>                                     
     </div>

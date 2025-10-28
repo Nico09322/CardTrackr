@@ -3,13 +3,13 @@
     import logo from "@/assets/CardTrackr.svg"
 
     const client = useSupabaseClient();
-    const user = useSupabaseUser()
+    const user = useSupabaseUser();
     const email = ref("");
     const password = ref(null);
     const errorMsg = ref(null);
     const router = useRouter();
 
-    const sign = ref<'in' | 'up'>('in')
+    const sign = ref("up")
 
     // Redirect to home if user is already logged in
     watchEffect(() => {

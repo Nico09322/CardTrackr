@@ -1,12 +1,22 @@
 <script setup>
 
+    import TCGdex from "@tcgdex/sdk";
     import { gsap } from "gsap";
+    
+    const tcgdex = new TCGdex('en');
+    const client = useSupabaseClient();
+    const user = useSupabaseUser();
 
     const props = defineProps({
         image: String,
         name: String,
         id: String,
-        price: String
+        price: String,
+        globalID: String,
+        wishlist: {
+            type: Array,
+            default: () => []
+        },
     });
 
     const url = ref("");
@@ -14,12 +24,24 @@
     const displayId = ref("");
     const displayPrice = ref("");
     const error = ref(false);
+    const isWishlisted = ref(false);
+
+    console.log(props.wishlist)
 
     onMounted(() => {
-    url.value = props.image + '/low.jpg';
-    displayName.value = props.name;
-    displayId.value = props.id;
-    displayPrice.value = props.price;
+        url.value = props.image + '/low.jpg';
+        displayName.value = props.name;
+        displayId.value = props.id;
+        displayPrice.value = props.price;
+        
+        if(props.wishlist) {
+            for (const card of props.wishlist) {
+                if(card.globalId === props.globalID) {
+                    isWishlisted.value = true;
+                }
+            }
+        }
+
     });
 
     const growText = (e) => {
@@ -46,6 +68,30 @@
         });
     }
 
+    const wishCard = async () => {
+        const wishCard = await tcgdex.card.get(props.globalID);
+        console.log(wishCard);
+        const img = wishCard.image + '/low.jpg'
+        const icon = wishCard.set.symbol + '/low.jpg';
+        try {
+            const {error} = await client
+                .from('wishlist')
+                .insert({
+                    globalId: wishCard.id,
+                    localId: wishCard.localId,
+                    image: img, 
+                    name: wishCard.name, 
+                    avgPrice: wishCard.pricing?.cardmarket?.avg30, 
+                    setName: wishCard.set.name, 
+                    setIcon: icon, user_id: 
+                    user.value.id});
+            if (error) throw error;
+            isWishlisted.value = true;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 </script>
 
 <template>
@@ -63,7 +109,7 @@
                 <div v-else class="bg-neutral-200 w-[14.5rem] h-[21rem] rounded-lg animate-pulse"></div>
             </div>
             <div class="mt-[1rem] flex flex-row gap-[0.5rem] justify-center">
-                <div class="w-[6rem] h-[2rem] bg-red-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText">Wünschen</div>
+                <div :class="[isWishlisted === false ? 'w-[6rem] h-[2rem] bg-red-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none' : 'opacity-30 pointer-events-none w-[6rem] h-[2rem] bg-red-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none']" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="wishCard">Wünschen</div>
                 <div class="w-[6rem] h-[2rem] bg-neutral-400 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText">Hinzufügen</div>            
             </div>
 

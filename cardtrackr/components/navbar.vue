@@ -2,7 +2,7 @@
 
     import logo from "@/assets/CardTrackr.svg"
     import { gsap } from "gsap";
-import { navigateTo } from "nuxt/app";
+    import { navigateTo } from "nuxt/app";
     
     const user = useSupabaseUser();
     const client = useSupabaseClient();
