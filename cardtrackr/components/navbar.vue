@@ -29,13 +29,14 @@
         try {
             const {error} = await client.auth.signOut();    
             if (error) throw error;
-            showProfile = false;
+            showProfile.value = false;
             return navigateTo("/");        
         } catch (error) {
             return
         }
     };
-
+    
+    
 </script>
 
 <template>

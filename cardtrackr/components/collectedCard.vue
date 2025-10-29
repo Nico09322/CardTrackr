@@ -1,12 +1,9 @@
 <script setup>
 
     import { gsap } from "gsap";
-    import TCGdex, { Query } from '@tcgdex/sdk'
 
     const client = useSupabaseClient();
     const user = useSupabaseUser();
-
-    const tcgdex = new TCGdex('en');
 
     const props = defineProps({
         price: Number,
@@ -52,37 +49,10 @@
 
     const remove = async () => {
         try {
-            const {error} = await client.from('wishlist').delete().eq('id', props.id);
+            const {error} = await client.from('collection').delete().eq('id', props.id);
             if(error) throw error;
             console.log("removed", props.id)
             emit('removed', props.id);
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-    
-    const collectCard = async () => {
-        const collectCard = await tcgdex.card.get(props.globalId);
-        const img = collectCard.image + '/low.jpg';
-        const logo = collectCard.set.logo + '.png';
-        const icon = collectCard.set.symbol + '.png';
-        try {
-            const {error} = await client
-                .from('collection')
-                .insert({
-                    globalId: collectCard.id,
-                    localId: collectCard.localId,
-                    image: img,
-                    name: collectCard.name,
-                    avgPrice: collectCard.pricing?.cardmarket?.avg30,
-                    setName: collectCard.set.name,
-                    setIcon: icon,
-                    setLogo: logo,
-                    user_id: user.value.id
-                });
-            if (error) throw error;
-            remove();
         } catch (error) {
             console.log(error);
         }
@@ -100,7 +70,6 @@
         </div>
         <img :src="props.image" class="rounded-lg w-[14rem]"/>
         <div v-if="isSelected" class="flex flex-col gap-[0.5rem]">
-            <div class="bg-red-500 text-white w-[14rem] flex justify-center items-center rounded-lg p-[0.25rem] cursor-pointer" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="collectCard">add to collection</div>
             <div class="bg-neutral-400 text-white w-[14rem] flex justify-center items-center rounded-lg p-[0.25rem] cursor-pointer" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="remove">Remove</div>
         </div>
     </div>

@@ -8,15 +8,15 @@
     const user = useSupabaseUser();
 
     const tcgdex = new TCGdex('en');
-    tcgdex.setCacheTTL(0);
+    tcgdex.setCacheTTL(10);
+
 
     const renderData= ref(null);
     const cardName = ref("");
     const query = ref("")
     const wishlist = ref(null)
+    const collection = ref(null);
     
-
-
     const sets = [
         {code: null, name: 'Search Set'},
         { code: 'base%20set', name: 'Base Set' },
@@ -168,6 +168,7 @@
     }
 
     onMounted(async () => {
+        localStorage.clear();
         renderData.value = []
         const data = await tcgdex.random.set();
         renderData.value = data;
@@ -183,6 +184,14 @@
             wishlist.value = data || [];
         } catch (error) {
             console.log(error)
+        }
+        
+        try {
+            const {data, error} = await client.from('collection').select('*').eq('user_id', user.value.sub);
+            if (error) throw error
+            collection.value = data || [];
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -249,7 +258,7 @@
             </div>
         </div>
         <div class="flex gap-[1rem] flex-wrap content-start items-center justify-center mt-[3rem] w-[80%]">
-            <CardPrev v-if="wishlist" v-for="card in renderData?.cards || []" :key="card.id" :name="card.name" :image="card.image" :id="card.localId" :globalID="card.id" :wishlist="wishlist"/>
+            <CardPrev v-if="wishlist && collection" v-for="card in renderData?.cards || []" :key="card.id" :name="card.name" :image="card.image" :id="card.localId" :globalID="card.id" :wishlist="wishlist" :collection="collection"/>
 
         </div>                                     
     </div>

@@ -17,6 +17,10 @@
             type: Array,
             default: () => []
         },
+        collection: {
+            type: Array,
+            default: () => []
+        },
     });
 
     const url = ref("");
@@ -25,6 +29,7 @@
     const displayPrice = ref("");
     const error = ref(false);
     const isWishlisted = ref(false);
+    const isCollected = ref(false);
 
     onMounted(() => {
         url.value = props.image + '/low.jpg';
@@ -36,6 +41,14 @@
             for (const card of props.wishlist) {
                 if(card.globalId === props.globalID) {
                     isWishlisted.value = true;
+                }
+            }
+        }
+
+        if(props.collection) {
+            for (const card of props.collection) {
+                if(card.globalId === props.globalID) {
+                    isCollected.value = true;
                 }
             }
         }
@@ -68,7 +81,6 @@
 
     const wishCard = async () => {
         const wishCard = await tcgdex.card.get(props.globalID);
-        console.log(wishCard);
         const img = wishCard.image + '/low.jpg'
         const icon = wishCard.set.symbol + '.png';
         try {
@@ -81,10 +93,37 @@
                     name: wishCard.name, 
                     avgPrice: wishCard.pricing?.cardmarket?.avg30, 
                     setName: wishCard.set.name, 
-                    setIcon: icon, user_id: 
-                    user.value.id});
+                    setIcon: icon,
+                    user_id: user.value.id
+                });
             if (error) throw error;
             isWishlisted.value = true;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const collectCard = async () => {
+        const collectCard = await tcgdex.card.get(props.globalID);
+        const img = collectCard.image + '/low.jpg';
+        const logo = collectCard.set.logo + '.png';
+        const icon = collectCard.set.symbol + '.png';
+        try {
+            const {error} = await client
+                .from('collection')
+                .insert({
+                    globalId: collectCard.id,
+                    localId: collectCard.localId,
+                    image: img,
+                    name: collectCard.name,
+                    avgPrice: collectCard.pricing?.cardmarket?.avg30,
+                    setName: collectCard.set.name,
+                    setIcon: icon,
+                    setLogo: logo,
+                    user_id: user.value.id
+                });
+            if (error) throw error;
+            isCollected.value = true;
         } catch (error) {
             console.log(error);
         }
@@ -108,7 +147,7 @@
             </div>
             <div class="mt-[1rem] flex flex-row gap-[0.5rem] justify-center">
                 <div :class="[isWishlisted === false ? 'w-[6rem] h-[2rem] bg-red-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none' : 'opacity-30 pointer-events-none w-[6rem] h-[2rem] bg-red-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none']" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="wishCard">Wishlist</div>
-                <div class="w-[6rem] h-[2rem] bg-neutral-400 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText">Collect</div>            
+                <div :class="[isCollected === false ? 'w-[6rem] h-[2rem] bg-neutral-400 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none' : 'opacity-30 pointer-events-none w-[6rem] h-[2rem] bg-neutral-400 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none']" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="collectCard">Collect</div>            
             </div>
 
         </div>
