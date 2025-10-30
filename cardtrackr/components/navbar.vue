@@ -7,6 +7,8 @@
     const user = useSupabaseUser();
     const client = useSupabaseClient();
     const showProfile = ref(false);
+    const value = ref(null);
+    const count = ref(null);
 
     const growText = (e) => {
         gsap.to(e.target, {
@@ -35,8 +37,26 @@
             return
         }
     };
+
+    const fetchData = async () => {
+        try {
+            const {data, error} = await client.from('collection').select('avgPrice').eq('user_id', user.value.sub);
+            if (error) throw error;
+            value.value = 0;
+            count.value = data.length;
+            for (const item of data) {
+                value.value += item.avgPrice || 0;
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
     
-    
+    const handleClick = () => {
+        fetchData();
+        showProfile.value = !showProfile.value
+    }
+
 </script>
 
 <template>
@@ -60,7 +80,7 @@
                 <NuxtLink to="/cards" v-slot="{ isActive }" @mouseenter="growText" @mouseleave="shrinkText">
                     <span :class="[isActive ? 'text-neutral-700' : 'text-neutral-400', 'hover:text-red-500']" >My Cards</span>
                 </NuxtLink>
-                <div class="w-[2.5rem] h-[2.5rem] rounded-full bg-neutral-100 flex justify-center items-center group hover:bg-red-500 duration-75" @click="showProfile = !showProfile">
+                <div class="w-[2.5rem] h-[2.5rem] rounded-full bg-neutral-100 flex justify-center items-center group hover:bg-red-500 duration-75" @click="handleClick">
                     <Icon  name="mdi:user" class="bg-neutral-400 w-[1.5rem] h-[1.5rem] group-hover:bg-white duration-75"/>
                 </div>
             </div>
@@ -81,11 +101,11 @@
             <div class="w-[18rem] mt-[1rem] text-neutral-600">
                 <div class="flex flex-row gap-[3rem]">
                     <div>Cards:</div>
-                    <div class="text-neutral-400">200</div>
+                    <div class="text-neutral-400">{{ count }}</div>
                 </div>
                 <div class="flex flex-row gap-[3rem]">
                     <div>Value:</div>
-                    <div class="text-neutral-400">3000$</div>
+                    <div class="text-neutral-400">{{value}}€</div>
                 </div>
             </div>
             <div class="w-[18rem] mt-[1rem]">

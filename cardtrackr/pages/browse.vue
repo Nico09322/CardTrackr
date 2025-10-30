@@ -16,6 +16,8 @@
     const query = ref("")
     const wishlist = ref(null)
     const collection = ref(null);
+    const visibleCards = ref([]);
+    const cardsToShow = ref(50); // Zeige initial 50 Karten
     
     const sets = [
         {code: null, name: 'Search Set'},
@@ -142,6 +144,7 @@
     ]
 
     const selectedSet = ref(sets[0])
+    const loadMoreTrigger = ref(null);
 
     const growText = (e) => {
         gsap.to(e.target, {
@@ -167,14 +170,52 @@
         });
     }
 
+    // Intersection Observer für Lazy Loading
+    const setupIntersectionObserver = () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && visibleCards.value.length < (renderData.value?.cards?.length || 0)) {
+                    loadMoreCards();
+                }
+            });
+        }, {
+            rootMargin: '200px'
+        });
+
+        if (loadMoreTrigger.value) {
+            observer.observe(loadMoreTrigger.value);
+        }
+
+        return observer;
+    };
+
+    const loadMoreCards = () => {
+        if (!renderData.value?.cards) return;
+        
+        const nextBatch = renderData.value.cards.slice(
+            visibleCards.value.length, 
+            visibleCards.value.length + 20
+        );
+        visibleCards.value = [...visibleCards.value, ...nextBatch];
+    }; 
+
+    watch(() => renderData.value?.cards, (newCards) => {
+        if (newCards) {
+            cardsToShow.value = 50;
+            visibleCards.value = newCards.slice(0, 20);
+        }
+    }, { immediate: true });
+
     onMounted(async () => {
         localStorage.clear();
         renderData.value = []
         const data = await tcgdex.random.set();
         renderData.value = data;
         fetchCards();
-        
+        console.log(renderData.value)
 
+        await nextTick();
+        setupIntersectionObserver();
     })
 
     const fetchCards = async () => {
@@ -257,9 +298,25 @@
                 <div class="bg-red-500 h-[3rem] text-white w-[6rem] p-[0.5rem] flex justify-center items-center rounded-lg select-none cursor-pointer" @click="search(cardName, selectedSet)" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText">Search</div>
             </div>
         </div>
-        <div class="flex gap-[1rem] flex-wrap content-start items-center justify-center mt-[3rem] w-[80%]">
-            <CardPrev v-if="wishlist && collection" v-for="card in renderData?.cards || []" :key="card.id" :name="card.name" :image="card.image" :id="card.localId" :globalID="card.id" :wishlist="wishlist" :collection="collection"/>
-
+        <div class="flex gap-[1rem] flex-wrap content-start items-center justify-center mt-[3rem] w-[90%]">
+            <CardPrev 
+                v-if="wishlist && collection" 
+                v-for="item in visibleCards" 
+                :key="item.id" 
+                :name="item.name" 
+                :image="item.image" 
+                :id="item.localId" 
+                :globalID="item.id" 
+                :wishlist="wishlist" 
+                :collection="collection"
+            />
+            <div 
+                v-if="visibleCards.length < (renderData?.cards?.length || 0)" 
+                ref="loadMoreTrigger" 
+                class="w-full h-[100px] flex items-center justify-center text-neutral-400"
+            >
+                loading cards...
+            </div>    
         </div>                                     
     </div>
     

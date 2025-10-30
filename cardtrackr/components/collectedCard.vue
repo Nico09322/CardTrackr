@@ -9,7 +9,7 @@
         price: Number,
         globalId: String,
         image: String,
-        localId: Number,
+        localId: String,
         name: String,
         selectedCardId: String,
         id: String,
