@@ -131,28 +131,31 @@
                         <Icon name="clarity:minus-line"  size="3rem" :class="[showNav === false ? 'bg-neutral-600 duration-100' : 'bg-neutral-600 -rotate-45 duration-100 -translate-y-[0.38rem]']"/>
                     </div>
                 </div>
-                <div v-if="showNav == true" class="flex flex-col gap-[1.5rem] cursor-pointer select-none  mt-[2rem]">
-                    <NuxtLink to="/" v-slot="{ isActive }" >
-                        <span :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg' : 'text-neutral-400 bg-neutral-100 p-[0.5rem] rounded-lg', ]" @click="showNav = false">Home</span>
-                    </NuxtLink>
-                    <NuxtLink to="/browse" v-slot="{ isActive }" >
-                        <span :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg' : 'text-neutral-400 bg-neutral-100 p-[0.5rem] rounded-lg', ]" @click="showNav = false">Browse</span>
-                    </NuxtLink>
-                    <NuxtLink to="/wish" v-slot="{ isActive }" >
-                        <span :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg' : 'text-neutral-400 bg-neutral-100 p-[0.5rem] rounded-lg', ]" @click="showNav = false">Wishlist</span>
-                    </NuxtLink>
-                    <NuxtLink to="/cards" v-slot="{ isActive }">
-                        <span :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg' : 'text-neutral-400 bg-neutral-100 p-[0.5rem] rounded-lg', ]" @click="showNav = false">My Cards</span>
-                    </NuxtLink>
-                    <div class="w-[18rem] h-[0.1rem] bg-neutral-200"></div>
-                    <div class="flex flex-row items-center gap-[0.5rem] text-neutral-500">
-                        <div class="w-[2.5rem] h-[2.5rem] rounded-full bg-neutral-100 flex justify-center items-center group hover:bg-red-500 duration-75" @click="handleClick">
-                            <Icon  name="mdi:user" class="bg-neutral-400 w-[1.5rem] h-[1.5rem] group-hover:bg-white duration-75"/>
+                <div :class="[showNav == false ? 'opacity-0' : 'opacity-100 duration-100 delay-200']">
+                    <div :class="[showNav == false ? 'flex flex-col gap-[1.5rem] cursor-pointer select-none  mt-[2rem]' : 'flex flex-col gap-[1.5rem] cursor-pointer select-none  mt-[2rem]']">
+                        <NuxtLink to="/" v-slot="{ isActive }" >
+                            <span :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg' : 'text-neutral-400 bg-neutral-100 p-[0.5rem] rounded-lg', ]" @click="showNav = false">Home</span>
+                        </NuxtLink>
+                        <NuxtLink to="/browse" v-slot="{ isActive }" >
+                            <span :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg' : 'text-neutral-400 bg-neutral-100 p-[0.5rem] rounded-lg', ]" @click="showNav = false">Browse</span>
+                        </NuxtLink>
+                        <NuxtLink to="/wish" v-slot="{ isActive }" >
+                            <span :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg' : 'text-neutral-400 bg-neutral-100 p-[0.5rem] rounded-lg', ]" @click="showNav = false">Wishlist</span>
+                        </NuxtLink>
+                        <NuxtLink to="/cards" v-slot="{ isActive }">
+                            <span :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg' : 'text-neutral-400 bg-neutral-100 p-[0.5rem] rounded-lg', ]" @click="showNav = false">My Cards</span>
+                        </NuxtLink>
+                        <div class="w-[18rem] h-[0.1rem] bg-neutral-200"></div>
+                        <div class="flex flex-row items-center gap-[0.5rem] text-neutral-500">
+                            <div class="w-[2.5rem] h-[2.5rem] rounded-full bg-neutral-100 flex justify-center items-center group hover:bg-red-500 duration-75" @click="handleClick">
+                                <Icon  name="mdi:user" class="bg-neutral-400 w-[1.5rem] h-[1.5rem] group-hover:bg-white duration-75"/>
+                            </div>
+                            <div class="" @click="handleClick">Profile</div>
                         </div>
-                        <div class="" @click="handleClick">Profile</div>
-                    </div>
 
+                    </div>
                 </div>
+               
                 <div v-if="showProfile" class="w-[20rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] rounded-lg fixed z-20 top-[25rem] left-[5%] p-[1rem] flex flex-col items-center">
                     <div class="flex flex-row items-center place-content-between w-[18rem]">
                         <div class="flex flex-row items-center gap-[1rem]">
