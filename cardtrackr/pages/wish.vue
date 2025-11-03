@@ -59,7 +59,7 @@
         </div>
     </div>
     <div v-if="wishlist.length > 0" class="flex justify-center">
-        <div class="bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[10rem] w-[90%] p-[1rem] rounded-lg flex flex-row place-content-between items-center">
+        <div class="bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[5rem] lg:mt-[10rem] w-[90%] p-[1rem] rounded-lg flex flex-row place-content-between items-center">
             <div class="text-neutral-400 font-bold text-[2rem]">Wishlist</div>
             <div class="flex flex-row gap-1 text-[1.25rem]">
                 <div class="text-neutral-400">cards:</div>
