@@ -136,7 +136,7 @@
     <div class="w-[11rem] md:w-[20rem] h-[20rem] md:h-[28.5rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] rounded-lg p-[1rem] border-[0.2rem] border-white hover:border-red-500">
         <div>
             <div class="flex flex-row gap-1">
-                <div class="font-semibold text-neutral-600">{{ displayName }}</div>
+                <div class="font-semibold text-neutral-600 h-[1.5rem] overflow-hidden">{{ displayName }}</div>
                 <div class="text-neutral-300">({{ displayId }})</div>
                 <div>{{  displayPrice}}</div>
 
