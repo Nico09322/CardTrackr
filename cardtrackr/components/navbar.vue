@@ -119,7 +119,7 @@
         </div>
     </div>
    <div class=" lg:hidden">
-        <div :class="[showNav == false ? 'flex justify-center delay-200 duration-200' : 'flex justify-center h-[23rem] duration-200']">
+        <div :class="[showNav == false ? 'flex justify-center delay-200 h-[5rem] duration-200' : 'flex justify-center h-[23rem] duration-200']">
             <div :class="[showNav == false ? 'bg-white w-[90%] h-[5rem] shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] relative rounded-lg mt-[1rem] p-[1rem] after:content-[\'\'] after:absolute after:top-0 after:left-0 after:w-full after:h-[5rem] after:bg-red-500 after:-z-40 after:rounded-lg duration-200 after:delay-100 after:duration-200' : 'bg-white w-[90%] h-[23rem] duration-200 delay-100 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] relative rounded-lg mt-[1rem] p-[1rem] after:content-[\'\'] after:absolute after:top-0 after:left-0 after:w-full after:h-[23rem] after:bg-red-500 after:-z-40 after:rounded-lg after:duration-100']">
                 <div class="flex flex-row place-content-between items-center h-[3rem]">
                     <div class="flex flex-row items-center gap-[0.5rem]">
