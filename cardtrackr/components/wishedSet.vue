@@ -26,7 +26,7 @@
 
 <template>
 
-    <div class="bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] w-3/4 p-[1rem] rounded-lg">
+    <div class="bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] w-[95%] md:w-3/4 p-[1rem] rounded-lg">
         <div class="flex flex-row place-content-between">
             <div class=" flex flex-row items-center gap-[0.5rem]">
                 <img v-if="!error" @error="error = true" :src="props.icon" class="w-[2rem]"/>

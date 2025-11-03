@@ -298,7 +298,7 @@
                 <div class="bg-red-500 h-[3rem] text-white md:w-[6rem] p-[0.5rem] flex justify-center items-center rounded-lg select-none cursor-pointer" @click="search(cardName, selectedSet)" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText">Search</div>
             </div>
         </div>
-        <div class="flex gap-[1rem] flex-wrap content-start items-center justify-center mt-[3rem] w-[90%]">
+        <div class="flex gap-[1rem] flex-wrap content-start items-center justify-center mt-[3rem] w-[95%] sm:w-[90%]">
             <CardPrev 
                 v-if="wishlist && collection" 
                 v-for="item in visibleCards" 

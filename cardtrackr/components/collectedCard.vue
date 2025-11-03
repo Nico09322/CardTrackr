@@ -60,17 +60,17 @@
 </script>
 
 <template>
-    <div :class="[isSelected ? 'bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] p-[1rem] rounded-lg flex flex-col gap-[1rem] w-[18rem] items-center border-[0.2rem] border-red-500' : 'bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] p-[1rem] rounded-lg flex flex-col gap-[1rem] w-[18rem] items-center border-[0.2rem] border-white hover:border-red-500']" @click="handleClick">
-        <div class="flex flex-row place-content-between w-full">
+    <div :class="[isSelected ? 'bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] p-[1rem] rounded-lg flex flex-col gap-[1rem] w-[10rem] md:w-[18rem] items-center border-[0.2rem] border-red-500' : 'bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] p-[1rem] rounded-lg flex flex-col gap-[1rem] w-[10rem] md:w-[18rem] items-center border-[0.2rem] border-white hover:border-red-500']" @click="handleClick">
+        <div class="flex flex-col md:flex-row place-content-between w-full">
             <div class="flex flex-row gap-1">
-                <div>{{ props.name }}</div>
+                <div class="text-[0.75rem] md:text-[1rem] h-[2rem] overflow-clip">{{ props.name }}</div>
                 <div class="text-neutral-400">({{ props.localId }})</div>
             </div>
             <div v-if="props.price">{{ props.price }}€</div>
         </div>
         <img :src="props.image" class="rounded-lg w-[14rem]"/>
-        <div v-if="isSelected" class="flex flex-col gap-[0.5rem]">
-            <div class="bg-neutral-400 text-white w-[14rem] flex justify-center items-center rounded-lg p-[0.25rem] cursor-pointer" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="remove">Remove</div>
+        <div v-if="isSelected" class="flex flex-col gap-[0.5rem] w-full">
+            <div class="bg-neutral-400 text-white w-full flex justify-center items-center rounded-lg p-[0.25rem] cursor-pointer" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="remove">Remove</div>
         </div>
     </div>
 </template>

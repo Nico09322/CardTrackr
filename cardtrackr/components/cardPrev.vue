@@ -133,7 +133,7 @@
 
 <template>
 
-    <div class="w-[20rem] h-[28.5rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] rounded-lg p-[1rem] border-[0.2rem] border-white hover:border-red-500">
+    <div class="w-[11rem] md:w-[20rem] h-[20rem] md:h-[28.5rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] rounded-lg p-[1rem] border-[0.2rem] border-white hover:border-red-500">
         <div>
             <div class="flex flex-row gap-1">
                 <div class="font-semibold text-neutral-600">{{ displayName }}</div>
@@ -143,7 +143,7 @@
             </div>
             <div class="flex justify-center mt-[1rem]">
                 <img v-if="!error" @error="error = true" :src="url" class="rounded-lg"/>
-                <div v-else class="bg-neutral-200 w-[14.5rem] h-[21rem] rounded-lg animate-pulse"></div>
+                <div v-else class="bg-neutral-200 w-[14.5rem] h-[12rem] rounded-lg animate-pulse"></div>
             </div>
             <div class="mt-[1rem] flex flex-row gap-[0.5rem] justify-center">
                 <div :class="[isWishlisted === false ? 'w-[6rem] h-[2rem] bg-red-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none' : 'opacity-30 pointer-events-none w-[6rem] h-[2rem] bg-red-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none']" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="wishCard">Wishlist</div>
