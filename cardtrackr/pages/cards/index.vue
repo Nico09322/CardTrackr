@@ -53,7 +53,19 @@ import CollectedSet from '~/components/collectedSet.vue';
 <template>
     <div class="flex justify-center">
         <div class="bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[5rem] lg:mt-[10rem] w-[90%] p-[1rem] rounded-lg flex flex-row place-content-between items-center">
-            <div class="text-neutral-400 font-bold text-[2rem]">My Cards</div>
+            <div class="text-neutral-400 font-bold text-[2rem] flex flex-row items-center gap-[1rem]">
+                <div>My Cards</div>
+                <NuxtLink to="/browse" class="w-[2rem] h-[2rem] bg-red-500 flex justify-center items-center pb-[0.25rem] text-white rounded-lg cursor-pointer" v-motion="{
+                    initial: {
+                        scale: 1,
+                    },
+                    hovered: {
+                        scale: 1.1
+                    }
+                }" 
+                
+                >+</NuxtLink>
+            </div>
             <div class="flex flex-row gap-1 text-[1.25rem]">
                 <div class="text-neutral-400">cards:</div>
                 <div class="text-red-500">{{ collection.length }}</div>

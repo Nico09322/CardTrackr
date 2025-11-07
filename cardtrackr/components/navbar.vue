@@ -109,11 +109,22 @@
                     </div>
                     <div class="flex flex-row gap-[3rem]">
                         <div>Value:</div>
-                        <div class="text-neutral-400">{{value}}€</div>
+                        <div class="text-neutral-400">{{value.toFixed(2)}}€</div>
                     </div>
                 </div>
                 <div class="w-[18rem] mt-[1rem]">
-                    <div class="bg-red-500 w-[4rem] text-[0.8rem] flex justify-center items-center p-[0.25rem] rounded-lg text-white cursor-pointer" @mouseenter="growText" @mouseleave="shrinkText" @click="logOut">Log Out</div>
+                    <div class="bg-red-500 w-[4rem] text-[0.8rem] flex justify-center items-center p-[0.25rem] rounded-lg text-white cursor-pointer" @click="logOut" v-motion="{
+                        initial: {
+                            scale: 1
+                        },
+                        hovered: {
+                            scale: 1.1
+                        },
+                        tapped: {
+                            scale: 0.9
+                        }
+                    }"
+                    >Log Out</div>
                 </div>
             </div>
         </div>

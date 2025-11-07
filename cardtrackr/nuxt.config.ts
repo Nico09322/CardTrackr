@@ -6,7 +6,8 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxt/image',
     '@nuxtjs/tailwindcss',
-    '@nuxtjs/supabase'
+    '@nuxtjs/supabase',
+    '@vueuse/motion/nuxt'
   ],
   fonts: {
     google: {

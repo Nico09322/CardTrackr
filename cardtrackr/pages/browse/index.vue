@@ -2,7 +2,7 @@
 
     import TCGdex, { Query } from '@tcgdex/sdk'
     import {Combobox,ComboboxInput,ComboboxOptions,ComboboxOption, ComboboxButton,} from '@headlessui/vue'
-    import { gsap } from "gsap";
+
 
     const client = useSupabaseClient();
     const user = useSupabaseUser();
@@ -146,29 +146,6 @@
     const selectedSet = ref(sets[0])
     const loadMoreTrigger = ref(null);
 
-    const growText = (e) => {
-        gsap.to(e.target, {
-            scale: 1.1,
-            duration: 0.1,
-            ease: "power2.out"
-        });
-    };
-
-    const shrinkText = (e) => {
-        gsap.to(e.target, {
-            scale: 1,
-            duration: 0.1,
-            ease: "power2.out"
-        });
-    };
-
-    const tapButton = (e) => {
-        gsap.to(e.target, {
-            scale: 0.9,
-            duration: 0.1,
-            ease: "power2.out"
-        });
-    }
 
     // Intersection Observer für Lazy Loading
     const setupIntersectionObserver = () => {
@@ -239,7 +216,11 @@
 
     const search = async (name, selectedSet) => {
 
-        if (name) {
+        if (!name && !selectedSet.code) {
+            return;
+        }
+
+        if (name && name !== "") {
             const data = await tcgdex.card.list(new Query().like('name', name));
             renderData.value = { cards: data.cards || data }; 
             return;
@@ -248,10 +229,6 @@
         if (selectedSet && selectedSet.code !== 'none') {
             const set = await tcgdex.fetch('sets', selectedSet.code);
             renderData.value = { cards: set.cards || set }; 
-            return;
-        }
-
-        if(!name && selectedSet.code === null){
             return;
         }
     }
@@ -295,7 +272,17 @@
 
                     </Combobox>
                 </div>
-                <div class="bg-red-500 h-[3rem] text-white md:w-[6rem] p-[0.5rem] flex justify-center items-center rounded-lg select-none cursor-pointer" @click="search(cardName, selectedSet)" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText">Search</div>
+                <div class="bg-red-500 h-[3rem] text-white md:w-[6rem] p-[0.5rem] flex justify-center items-center rounded-lg select-none cursor-pointer" @click="search(cardName, selectedSet)" v-motion="{
+                    initial: {
+                        scale: 1
+                    },
+                    hovered: {
+                        scale: 1.1
+                    },
+                    tapped: {
+                        scale: 0.9
+                    }
+                }">Search</div>
             </div>
         </div>
         <div class="flex gap-[1rem] flex-wrap content-start items-center justify-center mt-[3rem] w-[95%] sm:w-[90%]">

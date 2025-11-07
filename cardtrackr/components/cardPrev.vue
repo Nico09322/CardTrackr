@@ -2,6 +2,9 @@
 
     import TCGdex from "@tcgdex/sdk";
     import { gsap } from "gsap";
+    import confetti from 'canvas-confetti';
+    
+    const router = useRouter()
     
     const tcgdex = new TCGdex('en');
     const client = useSupabaseClient();
@@ -30,6 +33,7 @@
     const error = ref(false);
     const isWishlisted = ref(false);
     const isCollected = ref(false);
+    const collectButton = ref(null);
 
     onMounted(() => {
         url.value = props.image + '/low.jpg';
@@ -124,32 +128,75 @@
                 });
             if (error) throw error;
             isCollected.value = true;
+            if(collectButton.value) confettiPush(collectButton.value);
         } catch (error) {
             console.log(error);
         }
+    }
+
+    const moreDetail = () => {
+        router.push({path: `/browse/${props.globalID}`})
+    }
+
+    const confettiPush = (el) => {
+        const rect = el.getBoundingClientRect();
+
+        // Pixel -> relative Koordinaten (0-1)
+        const x = (rect.left + rect.width / 2) / window.innerWidth;
+        const y = (rect.top + rect.height / 2) / window.innerHeight;
+
+        confetti({
+            particleCount: 10,
+            spread: 360,
+            startVelocity: 5,
+            colors: ['#ef4444', '#f28c8c', '#f7a6a6', '#fcbaba'],
+            shapes: ['circle'],
+            origin: {x: x,y: y},
+            gravity: 0,
+            ticks: 100,
+            flat: true,
+            scalar: 0.7,
+
+        })
     }
 
 </script>
 
 <template>
 
-    <div class="w-[11rem] md:w-[20rem] h-[20rem] md:h-[28.5rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] rounded-lg p-[1rem] border-[0.2rem] border-white hover:border-red-500">
+    <div class="w-[11rem] md:w-[18rem] h-[20rem] md:h-[26rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] rounded-lg p-[0.5rem] border-[0.2rem] border-white hover:border-red-500">
         <div>
-            <div class="flex flex-row gap-1">
-                <div class="font-semibold text-neutral-600 h-[1.5rem] overflow-hidden">{{ displayName }}</div>
-                <div class="text-neutral-300">({{ displayId }})</div>
-                <div>{{  displayPrice}}</div>
+            <div class="flex flex-row place-content-between">
+                <div class="flex flex-row gap-2">
+                    <div class="font-semibold text-neutral-600 h-[1.5rem] overflow-hidden">{{ displayName }}</div>
+                    <div class="text-neutral-300">#{{ displayId }}</div>
+                </div>
+                <div class="flex flex-row gap-2">
+                    <div :class="[!isWishlisted ? 'w-[2rem] h-[2rem] bg-neutral-500 rounded-lg flex justify-center items-center' : 'w-[2rem] h-[2rem] bg-neutral-400 duration-200 rounded-lg flex justify-center items-center pointer-events-none']" @click="wishCard" v-motion="{initial:{scale:1},hovered:{scale:1.1, transition:{type:'spring',stiffness: 350, mass: 0.1}}}">
+                        <bookmark :isWishlisted="isWishlisted"/>
+                    </div>
+                    <div ref="collectButton" :class="[!isCollected ? 'w-[2rem] h-[2rem] bg-red-500 rounded-lg flex justify-center items-center' : 'w-[2rem] h-[2rem] bg-red-500 opacity-50 duration-200 rounded-lg flex justify-center items-center pointer-events-none']" @click="collectCard" v-motion="{initial:{scale:1},hovered:{scale:1.1, transition:{type:'spring',stiffness: 350, mass: 0.1}}}">
+                        <Icon name="ic:round-add" class="w-[1.5rem] h-[1.5rem] text-white"/>
+                    </div>
+                </div>
+                
 
             </div>
             <div class="flex justify-center mt-[1rem]">
-                <img v-if="!error" @error="error = true" :src="url" class="rounded-lg"/>
-                <div v-else class="bg-neutral-200 w-[14.5rem] h-[12rem] rounded-lg animate-pulse"></div>
-            </div>
-            <div class="mt-[1rem] flex flex-row gap-[0.5rem] justify-center">
-                <div :class="[isWishlisted === false ? 'w-[6rem] h-[2rem] bg-red-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none' : 'opacity-30 pointer-events-none w-[6rem] h-[2rem] bg-red-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none']" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="wishCard">Wishlist</div>
-                <div :class="[isCollected === false ? 'w-[6rem] h-[2rem] bg-neutral-500 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none' : 'opacity-30 pointer-events-none w-[6rem] h-[2rem] bg-neutral-400 text-white text-[0.8rem] flex justify-center items-center rounded-lg select-none']" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="collectCard">Collect</div>            
-            </div>
+                <div class="group flex justify-center items-center hover:cursor-pointer" @click="moreDetail">
+                    <img v-if="!error" @error="error = true" :src="url" class="rounded-lg group-hover:opacity-30 duration-100">
+                    <div v-if="!error" class="text-neutral-600 absolute group-hover:opacity-100 opacity-0 duration-100">more details</div>
+                    <div v-else class="bg-neutral-200 w-[14.5rem] h-[12rem] md:h-[21rem] rounded-lg flex justify-center items-center">
+                        <div class="flex flex-col justify-center items-center">
+                            <pokeball />
+                            <div class="text-[0.8rem] text-neutral-400">no image found</div>                         
+                        </div>
 
+                    </div>
+                </div>
+
+
+            </div>
         </div>
     </div>
 
