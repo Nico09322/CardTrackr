@@ -5,6 +5,8 @@
     const client = useSupabaseClient();
     const user = useSupabaseUser();
 
+    const error = ref(false);
+
     const props = defineProps({
         price: Number,
         globalId: String,
@@ -68,7 +70,19 @@
             </div>
             <div v-if="props.price">{{ props.price }}€</div>
         </div>
-        <img :src="props.image" class="rounded-lg w-[14rem]"/>
+        <div class="flex justify-center">
+            <div class="group flex justify-center items-center hover:cursor-pointer" @click="moreDetail">
+                <img v-if="!error" @error="error = true" :src="props.image" class="rounded-lg group-hover:opacity-30 duration-100" alt="">
+                <div v-if="!error" class="text-neutral-600 absolute group-hover:opacity-100 opacity-0 duration-100">more details</div>
+                <div v-else class="bg-neutral-200 w-[9rem] md:w-[14.5rem] h-[13rem] md:h-[21rem] rounded-lg flex justify-center items-center">
+                    <div class="flex flex-col justify-center items-center">
+                        <pokeball />
+                        <div class="text-[0.8rem] text-neutral-400">no image found</div>                         
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <div v-if="isSelected" class="flex flex-col gap-[0.5rem] w-full">
             <div class="bg-neutral-400 text-white w-full flex justify-center items-center rounded-lg p-[0.25rem] cursor-pointer" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="remove">Remove</div>
         </div>

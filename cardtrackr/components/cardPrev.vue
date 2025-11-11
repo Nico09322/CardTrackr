@@ -164,7 +164,7 @@
 
 <template>
 
-    <div class="w-[11rem] md:w-[18rem] h-[19rem] md:h-[26rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] rounded-lg p-[0.5rem] border-[0.2rem] border-white hover:border-red-500">
+    <div class="w-[11rem] md:w-[18rem] h-[19rem] md:h-[26rem] bg-white rounded-lg p-[0.5rem] border-[0.15rem] border-white hover:border-red-500 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)]">
         <div>
             <div class="flex flex-col md:flex-row place-content-between gap-1">
                 <div class="flex flex-row gap-2">
@@ -172,11 +172,11 @@
                     <div class="text-neutral-300">#{{ displayId }}</div>
                 </div>
                 <div class="flex flex-row place-content-center md:place-content-start gap-2">
-                    <div :class="[!isWishlisted ? 'md:w-[2rem] w-[4rem] h-[2rem] bg-neutral-500 rounded-lg flex justify-center items-center' : 'md:w-[2rem] w-[4rem] h-[2rem] bg-neutral-400 duration-200 rounded-lg flex justify-center items-center pointer-events-none']" @click="wishCard" v-motion="{initial:{scale:1},hovered:{scale:1.1, transition:{type:'spring',stiffness: 350, mass: 0.1}}}">
+                    <div :class="[!isWishlisted ? 'md:w-[2rem] w-[4rem] h-[2rem] border-[0.15rem] border-neutral-400 rounded-lg flex justify-center items-center' : 'md:w-[2rem] w-[4rem] h-[2rem] border-[0.15rem] border-neutral-400 duration-200 rounded-lg flex justify-center items-center pointer-events-none']" @click="wishCard" v-motion="{initial:{scale:1},hovered:{scale:1.1, transition:{type:'spring',stiffness: 350, mass: 0.1}}}">
                         <bookmark :isWishlisted="isWishlisted"/>
                     </div>
-                    <div ref="collectButton" :class="[!isCollected ? 'md:w-[2rem] w-[4rem] h-[2rem] bg-red-500 rounded-lg flex justify-center items-center' : 'md:w-[2rem] w-[4rem] h-[2rem] bg-red-500 opacity-50 duration-200 rounded-lg flex justify-center items-center pointer-events-none']" @click="collectCard" v-motion="{initial:{scale:1},hovered:{scale:1.1, transition:{type:'spring',stiffness: 350, mass: 0.1}}}">
-                        <Icon name="ic:round-add" class="w-[1.5rem] h-[1.5rem] text-white"/>
+                    <div ref="collectButton" :class="[!isCollected ? ' group md:w-[2rem] w-[4rem] h-[2rem] bg-red-500 rounded-lg flex justify-center items-center' : 'group md:w-[2rem] w-[4rem] h-[2rem] bg-red-500 opacity-50 duration-200 rounded-lg flex justify-center items-center pointer-events-none']" @click="collectCard" v-motion="{initial:{scale:1},hovered:{scale:1.1, transition:{type:'spring',stiffness: 350, mass: 0.1}}}">
+                        <Icon name="ic:round-add" class="w-[1.5rem] h-[1.5rem] text-white group-hover:rotate-90 duration-300 ease-in-out"/>
                     </div>
                 </div>
                 
@@ -186,7 +186,7 @@
                 <div class="group flex justify-center items-center hover:cursor-pointer" @click="moreDetail">
                     <img v-if="!error" @error="error = true" :src="url" class="rounded-lg group-hover:opacity-30 duration-100">
                     <div v-if="!error" class="text-neutral-600 absolute group-hover:opacity-100 opacity-0 duration-100">more details</div>
-                    <div v-else class="bg-neutral-200 w-[14.5rem] h-[12rem] md:h-[21rem] rounded-lg flex justify-center items-center">
+                    <div v-else class="bg-neutral-200 w-[9rem] md:w-[14.5rem] h-[13rem] md:h-[21rem] rounded-lg flex justify-center items-center">
                         <div class="flex flex-col justify-center items-center">
                             <pokeball />
                             <div class="text-[0.8rem] text-neutral-400">no image found</div>                         

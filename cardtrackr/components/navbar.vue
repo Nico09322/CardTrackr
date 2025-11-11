@@ -3,6 +3,7 @@
     import logo from "@/assets/CardTrackr.svg"
     import { gsap } from "gsap";
     import { navigateTo } from "nuxt/app";
+    import { onClickOutside } from '@vueuse/core'
     
     const user = useSupabaseUser();
     const client = useSupabaseClient();
@@ -10,6 +11,10 @@
     const value = ref(null);
     const count = ref(null);
     const showNav = ref(false);
+    const profileRef = ref(null);
+
+
+
 
     const growText = (e) => {
         gsap.to(e.target, {
@@ -61,6 +66,8 @@
 
     }
 
+    onClickOutside(profileRef, () => showProfile.value = false);
+
 </script>
 
 <template>
@@ -89,7 +96,7 @@
                     </div>
                 </div>
             </div>
-            <div v-if="showProfile" class="w-[20rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] rounded-lg fixed z-20 top-[8rem] left-2/3 p-[1rem] flex flex-col items-center">
+            <div v-if="showProfile" ref="profileRef" class="w-[20rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] rounded-lg fixed z-20 top-[8rem] left-2/3 p-[1rem] flex flex-col items-center">
                 <div class="flex flex-row items-center place-content-between w-[18rem]">
                     <div class="flex flex-row items-center gap-[1rem]">
                         <div class="w-[2.5rem] h-[2.5rem] rounded-full bg-neutral-100 flex justify-center items-center group ">
@@ -138,8 +145,8 @@
                         <h1 class="font-bold">CardTrackr</h1>
                     </div>
                     <div class="flex-col flex w-fit h-fit justify-center items-center leading-none space-y-[-2.25rem] group" @click="showNav = !showNav">
-                        <Icon name="clarity:minus-line"  size="3rem" :class="[showNav === false ? 'bg-neutral-600 duration-100' : 'bg-neutral-600 rotate-45 duration-100 translate-y-[0.38rem]']"/>
-                        <Icon name="clarity:minus-line"  size="3rem" :class="[showNav === false ? 'bg-neutral-600 duration-100' : 'bg-neutral-600 -rotate-45 duration-100 -translate-y-[0.38rem]']"/>
+                        <Icon name="clarity:minus-line"  size="3rem" :class="[showNav === false ? 'bg-neutral-600 duration-100' : 'bg-neutral-600 rotate-45 duration-200 ease-in-out translate-y-[0.38rem]']"/>
+                        <Icon name="clarity:minus-line"  size="3rem" :class="[showNav === false ? 'bg-neutral-600 duration-100' : 'bg-neutral-600 -rotate-45 duration-200 ease-in-out -translate-y-[0.38rem]']"/>
                     </div>
                 </div>
                 <div :class="[showNav == false ? 'opacity-0' : 'opacity-100 duration-100 delay-200']">
@@ -176,7 +183,7 @@
                             <div class="text-neutral-700">{{ user.email }}</div>
                         </div>
                         <div class="bg-red-500 w-[1.5rem] h-[1.5rem] flex justify-center items-center text-white rounded-full group" @click="showProfile = false">
-                            <Icon name="fluent-emoji-high-contrast:cross-mark" class="group-hover:rotate-90 duration-100 w-[0.75rem]" />
+                            <Icon name="fluent-emoji-high-contrast:cross-mark" class="group-hover:rotate-90 duration-300 w-[0.75rem] ease-in-out" />
                         </div>
                     </div>
                     <div class="w-[18rem] h-[0.1rem] bg-neutral-200 mt-[1rem]"></div>

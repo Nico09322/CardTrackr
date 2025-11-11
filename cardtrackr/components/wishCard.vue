@@ -2,9 +2,12 @@
 
     import { gsap } from "gsap";
     import TCGdex, { Query } from '@tcgdex/sdk'
+import { onMounted } from "vue";
 
     const client = useSupabaseClient();
     const user = useSupabaseUser();
+    const url = ref(null);
+    const error = ref(false);
 
     const tcgdex = new TCGdex('en');
 
@@ -41,6 +44,10 @@
             ease: "power2.out"
         });
     }
+
+    onMounted(() => {
+        url.value = props.image;
+    })
     
     const emit = defineEmits(['selected', 'removed']);
     
@@ -90,18 +97,36 @@
 </script>
 
 <template>
-    <div :class="[isSelected ? 'bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] p-[1rem] rounded-lg flex flex-col gap-[1rem] w-[10rem] md:w-[18rem] items-center border-[0.2rem] border-red-500' : 'bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] p-[1rem] rounded-lg flex flex-col gap-[1rem] w-[10rem] md:w-[18rem] items-center border-[0.2rem] border-white hover:border-red-500']" @click="handleClick">
+    <div :class="[isSelected ? 'bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] p-[1rem] rounded-lg flex flex-col gap-[1rem] w-[11rem] md:w-[18rem] items-center border-[0.15rem] border-red-500' : 'bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] p-[1rem] rounded-lg flex flex-col gap-[1rem] w-[11rem] md:w-[18rem] items-center border-[0.15rem] border-white hover:border-red-500']" @click="handleClick">
         <div class="flex flex-col md:flex-row place-content-between w-full">
             <div class="flex flex-row gap-1">
                 <div>{{ props.name }}</div>
-                <div class="text-neutral-400">({{ props.localId }})</div>
+                <div class="text-neutral-400">#{{ props.localId }}</div>
             </div>
             <div v-if="props.price">{{ props.price }}€</div>
         </div>
-        <img :src="props.image" class="rounded-lg w-[14rem]"/>
-        <div v-if="isSelected" class="flex flex-col gap-[0.5rem] w-full">
-            <div class="bg-red-500 text-white w-full flex md:text-[1rem] text-[0.8rem] justify-center items-center rounded-lg p-[0.25rem] cursor-pointer" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="collectCard">add to collection</div>
-            <div class="bg-neutral-400 text-white w-full flex justify-center items-center rounded-lg p-[0.25rem] cursor-pointer" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="remove">Remove</div>
+        <div class="flex justify-center">
+            <div class="group flex justify-center items-center hover:cursor-pointer" @click="moreDetail">
+                <img v-if="!error" @error="error = true" :src="url" class="rounded-lg group-hover:opacity-30 duration-100" alt="">
+                <div v-if="!error" class="text-neutral-600 absolute group-hover:opacity-100 opacity-0 duration-100">more details</div>
+                <div v-else class="bg-neutral-200 w-[9rem] md:w-[14.5rem] h-[13rem] md:h-[21rem] rounded-lg flex justify-center items-center">
+                    <div class="flex flex-col justify-center items-center">
+                        <pokeball />
+                        <div class="text-[0.8rem] text-neutral-400">no image found</div>                         
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div v-if="isSelected" class="flex flex-row gap-[0.5rem] w-full">
+            <div class="border-[0.15rem] border-neutral-400 h-[2.5rem] text-neutral-400 w-full flex justify-center items-center rounded-lg cursor-pointer" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="remove">
+                <trash />
+                <div class="ml-[2rem] md:block hidden">delete</div>
+            </div>
+            <div class="bg-red-500 text-white w-full flex justify-center items-center rounded-lg cursor-pointer group" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText" @click="collectCard">
+                <Icon name="ic:round-add" class="w-[1.5rem] h-[1.5rem] text-white group-hover:rotate-90 duration-300 ease-in-out"/>
+                <div class="ml-[0.25rem] md:block hidden">add</div>
+            </div>
         </div>
     </div>
 </template>

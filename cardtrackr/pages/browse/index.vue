@@ -1,8 +1,10 @@
 <script setup>
-
     import TCGdex, { Query } from '@tcgdex/sdk'
     import {Combobox,ComboboxInput,ComboboxOptions,ComboboxOption, ComboboxButton,} from '@headlessui/vue'
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+    gsap.registerPlugin(ScrollTrigger)     
 
     const client = useSupabaseClient();
     const user = useSupabaseUser();
@@ -10,14 +12,13 @@
     const tcgdex = new TCGdex('en');
     tcgdex.setCacheTTL(10);
 
-
     const renderData= ref(null);
     const cardName = ref("");
     const query = ref("")
     const wishlist = ref(null)
     const collection = ref(null);
     const visibleCards = ref([]);
-    const cardsToShow = ref(50); // Zeige initial 50 Karten
+    const cardsToShow = ref(50);
     
     const sets = [
         {code: null, name: 'Search Set'},
@@ -145,9 +146,8 @@
 
     const selectedSet = ref(sets[0])
     const loadMoreTrigger = ref(null);
+    const cardsContainer = ref(null);
 
-
-    // Intersection Observer für Lazy Loading
     const setupIntersectionObserver = () => {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -166,29 +166,73 @@
         return observer;
     };
 
+    const animateCards = () => {
+        nextTick(() => {
+            const cards = cardsContainer.value?.querySelectorAll('.card-item');
+            if (cards && cards.length > 0) {
+                gsap.fromTo(cards, 
+                    {
+                        y: 50,
+                        opacity: 0
+                    },
+                    {
+                        duration: 0.3,
+                        y: 0,
+                        opacity: 1,
+                        stagger: 0.1,
+                        ease: "power2.out"
+                    }
+                );
+            }
+        });
+    };
+
     const loadMoreCards = () => {
         if (!renderData.value?.cards) return;
         
+        const currentLength = visibleCards.value.length;
         const nextBatch = renderData.value.cards.slice(
-            visibleCards.value.length, 
-            visibleCards.value.length + 20
+            currentLength, 
+            currentLength + 20
         );
+        
         visibleCards.value = [...visibleCards.value, ...nextBatch];
+        
+        nextTick(() => {
+            const newCards = cardsContainer.value?.querySelectorAll('.card-item');
+            if (newCards && newCards.length > currentLength) {
+                const cardsToAnimate = Array.from(newCards).slice(currentLength);
+                gsap.fromTo(cardsToAnimate,
+                    {
+                        y: 50,
+                        opacity: 0
+                    },
+                    {
+                        duration: 0.3,
+                        y: 0,
+                        opacity: 1,
+                        stagger: 0.05,
+                        ease: "power2.out"
+                    }
+                );
+            }
+        });
     }; 
 
     watch(() => renderData.value?.cards, (newCards) => {
         if (newCards) {
             cardsToShow.value = 50;
             visibleCards.value = newCards.slice(0, 20);
+            animateCards();
         }
-    }, { immediate: true });
+    });
 
     onMounted(async () => {
         localStorage.clear();
         renderData.value = []
+        await fetchCards();
         const data = await tcgdex.random.set();
         renderData.value = data;
-        fetchCards();
         console.log(renderData.value)
 
         await nextTick();
@@ -213,9 +257,7 @@
         }
     }
 
-
     const search = async (name, selectedSet) => {
-
         if (!name && !selectedSet.code) {
             return;
         }
@@ -238,11 +280,10 @@
             return set.name.toLocaleLowerCase().includes(query.value.toLocaleLowerCase())
         })
     )
-
 </script>
 
 <template>
-    <div class="flex flex-col items-center">
+    <div class="flex flex-col items-center ">
         <div class="w-[80%] h-[16.5rem] md:h-[10rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[5rem] lg:mt-[10rem] rounded-lg p-[1rem] z-10">
             <div class="text-neutral-300 font-bold text-[1.5rem] mb-[1rem]">Find cards</div>
             <div class="flex flex-col md:flex-row gap-[1rem]">
@@ -256,7 +297,6 @@
                                 <div  class="hover:bg-red-500 w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-lg group duration-75">
                                     <Icon name="fluent:chevron-up-down-24-filled" class="text-neutral-500 group-hover:bg-white duration-75"/>
                                 </div>
-
                             </ComboboxButton>
                         </div>
                         <div class="bg-neutral-100 mt-[0.5rem] rounded-lg max-h-[15rem] overflow-auto text-neutral-500 absolute">
@@ -266,10 +306,8 @@
                                         {{ set.name }}
                                     </ComboboxOption>
                                 </div>
-
                             </ComboboxOptions>
                         </div>
-
                     </Combobox>
                 </div>
                 <div class="bg-red-500 h-[3rem] text-white md:w-[6rem] p-[0.5rem] flex justify-center items-center rounded-lg select-none cursor-pointer" @click="search(cardName, selectedSet)" v-motion="{
@@ -285,7 +323,7 @@
                 }">Search</div>
             </div>
         </div>
-        <div class="flex gap-[1rem] flex-wrap content-start items-center justify-center mt-[3rem] w-[95%] sm:w-[90%]">
+        <div ref="cardsContainer" class="flex gap-[1rem] flex-wrap content-start items-center justify-center mt-[3rem] w-[95%] sm:w-[90%]">
             <CardPrev 
                 v-if="wishlist && collection" 
                 v-for="item in visibleCards" 
@@ -296,6 +334,7 @@
                 :globalID="item.id" 
                 :wishlist="wishlist" 
                 :collection="collection"
+                class="card-item"
             />
             <div 
                 v-if="visibleCards.length < (renderData?.cards?.length || 0)" 
@@ -306,5 +345,4 @@
             </div>    
         </div>                                     
     </div>
-    
 </template>
