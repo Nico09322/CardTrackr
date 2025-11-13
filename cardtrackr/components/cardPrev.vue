@@ -4,6 +4,7 @@
     import { gsap } from "gsap";
     import confetti from 'canvas-confetti';
     
+    
     const router = useRouter()
     
     const tcgdex = new TCGdex('en');
@@ -182,21 +183,20 @@
                 
 
             </div>
-            <div class="flex justify-center mt-[0.5rem] md:mt-[1rem]">
-                <div class="group flex justify-center items-center hover:cursor-pointer" @click="moreDetail">
-                    <img v-if="!error" @error="error = true" :src="url" class="rounded-lg group-hover:opacity-30 duration-100">
-                    <div v-if="!error" class="text-neutral-600 absolute group-hover:opacity-100 opacity-0 duration-100">more details</div>
-                    <div v-else class="bg-neutral-200 w-[9rem] md:w-[14.5rem] h-[13rem] md:h-[21rem] rounded-lg flex justify-center items-center">
-                        <div class="flex flex-col justify-center items-center">
-                            <pokeball />
-                            <div class="text-[0.8rem] text-neutral-400">no image found</div>                         
+                <div class="flex justify-center mt-[0.5rem] md:mt-[1rem]">
+                    <div class="group flex justify-center items-center hover:cursor-pointer" @click="moreDetail">
+                        <img v-if="!error" @error="error = true" :src="url" class="rounded-lg duration-100 hover:scale-105" >
+                        <div v-else class="bg-neutral-200 w-[9rem] md:w-[14.5rem] h-[13rem] md:h-[21rem] rounded-lg flex justify-center items-center">
+                            <div class="flex flex-col justify-center items-center">
+                                <pokeball />
+                                <div class="text-[0.8rem] text-neutral-400">no image found</div>                         
+                            </div>
+
                         </div>
-
                     </div>
+
+
                 </div>
-
-
-            </div>
         </div>
     </div>
 

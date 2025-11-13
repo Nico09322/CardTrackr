@@ -19,9 +19,9 @@
 
     onMounted(() => {
         let splitHead = SplitText.create(headline.value, {type: "words, chars"});
-        let splitSub = SplitText.create(subHead.value, {type: "words"});
-        let splitSub2 = SplitText.create(subHead2.value, {type: "words"});
-        let splitSub3 = SplitText.create(subHead3.value, {type: "words"});
+        let splitSub = SplitText.create(subHead.value, {type: "words, lines"});
+        let splitSub2 = SplitText.create(subHead2.value, {type: "lines"});
+        let splitSub3 = SplitText.create(subHead3.value, {type: "lines"});
 
         gsap.from(splitHead.words, {
             scrollTrigger: headline.value,
@@ -31,37 +31,37 @@
             stagger: 0.05,
         });
 
-        gsap.from(splitSub.words, {
+        gsap.from(splitSub.lines, {
             scrollTrigger: {
                 trigger: subHead.value,
                 start: "top 80%"
             },
-            duration: 0.2,
+            duration: 0.5,
             y:30,
             autoAlpha: 0,
-            stagger: 0.025,
+            stagger: 0.2,
         });
 
-        gsap.from(splitSub2.words, {
+        gsap.from(splitSub2.lines, {
             scrollTrigger: {
                 trigger: subHead2.value,
                 start: "top 80%"
             },
-            duration: 0.2,
+            duration: 0.5,
             y:30,
             autoAlpha: 0,
-            stagger: 0.025,
+            stagger: 0.2,
         })        
 
-        gsap.from(splitSub3.words, {
+        gsap.from(splitSub3.lines, {
             scrollTrigger: {
                 trigger: subHead3.value,
                 start: "top 80%"
             },
-            duration: 0.2,
+            duration: 0.5,
             y:30,
             autoAlpha: 0,
-            stagger: 0.025,
+            stagger: 0.2,
         })        
     })
 
