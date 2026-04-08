@@ -1,11 +1,11 @@
-# CardTrackr 🃏
+# CardTrackr
 
 CardTrackr is a web app that helps collectors keep track of their Pokémon cards — both the ones they already own and the ones they’re still hunting for.  
 It’s your personal Pokédex for trading cards, designed to make collection management simple, visual, and fun.
 
 ---
 
-## 🚀 Features
+## Features
 
 - **Add & manage cards** – Mark which cards you own and which you’re still missing.  
 - **Search & filter** – Quickly find cards by name, set, rarity, or number.  
@@ -14,7 +14,7 @@ It’s your personal Pokédex for trading cards, designed to make collection man
 - **Responsive design** – Works beautifully on desktop, tablet, and mobile.
 
 
-## 💻 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js (v18 or higher)
@@ -35,7 +35,7 @@ Then open [http://localhost:5173](http://localhost:3000) (or the port shown in y
 
 ---
 
-## 🧩 Roadmap
+## Roadmap
 
 - [ ] User profiles and authentication  
 - [ ] Trading and wishlist sharing  
@@ -45,7 +45,7 @@ Then open [http://localhost:5173](http://localhost:3000) (or the port shown in y
 
 ---
 
-## 💬 Acknowledgments
+## Acknowledgments
 
 CardTrackr is a fan project inspired by the Pokémon Trading Card Game.  
 It is not affiliated with, endorsed, or sponsored by Nintendo, Game Freak, or The Pokémon Company.
