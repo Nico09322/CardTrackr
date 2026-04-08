@@ -77,6 +77,7 @@
                 <div class="flex flex-row items-center gap-[0.5rem]">
                     <img :src="logo" class="w-[2rem]"/>
                     <h1 class="font-bold">CardTrackr</h1>
+                    <div class="text-red-500">beta</div>
                 </div>
                 <div class="flex flex-row gap-[3rem] cursor-pointer select-none items-center">
                     <NuxtLink to="/" v-slot="{ isActive }" @mouseenter="growText" @mouseleave="shrinkText">
