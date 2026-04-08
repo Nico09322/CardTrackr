@@ -42,11 +42,6 @@ Then open [http://localhost:5173](http://localhost:3000) (or the port shown in y
 - [ ] Card scanning (via image recognition)  
 - [ ] Yu Gi Oh support (and other TCGs) 
 
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ---
 
