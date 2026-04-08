@@ -37,7 +37,7 @@ Then open [http://localhost:5173](http://localhost:3000) (or the port shown in y
 
 ## Roadmap
 
-- [ ] User profiles and authentication  
+- [x] User profiles and authentication  
 - [ ] Trading and wishlist sharing  
 - [ ] Card scanning (via image recognition)  
 - [ ] Yu Gi Oh support (and other TCGs) 
