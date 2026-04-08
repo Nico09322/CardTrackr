@@ -185,7 +185,9 @@
             </div>
                 <div class="flex justify-center mt-[0.5rem] md:mt-[1rem]">
                     <div class="group flex justify-center items-center hover:cursor-pointer" @click="moreDetail">
-                        <img v-if="!error" @error="error = true" :src="url" class="rounded-lg duration-100 hover:scale-105" >
+                        <div v-if="!error">
+                            <img @error="error = true" :src="url" class="rounded-lg duration-150 hover:scale-105">
+                        </div>
                         <div v-else class="bg-neutral-200 w-[9rem] md:w-[14.5rem] h-[13rem] md:h-[21rem] rounded-lg flex justify-center items-center">
                             <div class="flex flex-col justify-center items-center">
                                 <pokeball />

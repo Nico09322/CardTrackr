@@ -284,7 +284,7 @@
 
 <template>
     <div class="flex flex-col items-center ">
-        <div class="w-[80%] h-[16.5rem] md:h-[10rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[5rem] lg:mt-[10rem] rounded-lg p-[1rem] z-10">
+        <div class="w-[80%] h-[16.5rem] md:h-[8.5rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[5rem] lg:mt-[10rem] rounded-lg p-[1rem] z-10">
             <div class="text-neutral-300 font-bold text-[1.5rem] mb-[1rem]">Find cards</div>
             <div class="flex flex-col md:flex-row gap-[1rem]">
                 <input v-model="cardName" type="text" placeholder="Name" class="bg-neutral-100 rounded-lg p-[0.5rem] h-[3rem] outline-none border-[0.15rem] border-neutral-200 focus:border-red-500"/>
