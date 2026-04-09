@@ -103,7 +103,11 @@
                         <div class="w-[2.5rem] h-[2.5rem] rounded-full bg-neutral-100 flex justify-center items-center group ">
                             <Icon  name="mdi:user" class="bg-neutral-400 w-[1.5rem] h-[1.5rem]  "/>
                         </div>
-                        <div class="text-neutral-700">{{ user.email }}</div>
+                        <div class="text-neutral-700 flex flex-row gap-[0.5rem]">
+                            <div>{{ user.email }}</div>
+                            <NuxtLink to="/account" class="bg-neutral-200 w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-full cursor-pointer"><Icon name="material-symbols:edit-outline" class="bg-neutral-400"/></NuxtLink>
+                        </div>
+
                     </div>
                     <div class="bg-red-500 w-[1.5rem] h-[1.5rem] flex justify-center items-center text-white rounded-full group" @click="showProfile = false">
                         <Icon name="fluent-emoji-high-contrast:cross-mark" class="group-hover:rotate-90 duration-100 w-[0.75rem]" />

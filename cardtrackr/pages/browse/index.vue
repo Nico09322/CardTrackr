@@ -323,7 +323,8 @@
                 }">Search</div>
             </div>
         </div>
-        <div ref="cardsContainer" class="flex gap-[1rem] flex-wrap content-start items-center justify-center mt-[3rem] w-[95%] sm:w-[90%]">
+        <div class="font-bold text-[2rem] mt-[2rem] text-neutral-300">{{ renderData?.name }}</div>
+        <div ref="cardsContainer" class="flex gap-[1rem] flex-wrap content-start items-center justify-center mt-[1rem] w-[95%] sm:w-[90%]">
             <CardPrev 
                 v-if="wishlist && collection" 
                 v-for="item in visibleCards" 

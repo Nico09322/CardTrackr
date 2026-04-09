@@ -3,16 +3,21 @@
     import { gsap } from "gsap";
     import { onMounted } from "vue";
     import { useRoute } from 'vue-router'
+    import { until } from '@vueuse/core'
 
     const route = useRoute()
 
     const tcgdex = new TCGdex('en');
+    const client = useSupabaseClient();
+    const user = useSupabaseUser();
     const card = ref([]);
     const img = ref(null);
     const set = ref(null);
     const setName = ref(null);
     const render = ref(false);
-    const trend = 0;
+    let trend = 0;
+    const isWishlisted = ref(false);
+    const wishlist = ref('wishlist')
 
 
 
@@ -24,14 +29,54 @@
         setName.value = card.value.set.name;
         render.value = true;
         trend = ((card.value.pricing.cardmarket.avg7 - card.value.pricing.cardmarket.avg30) / card.value.pricing.cardmarket.avg30 * 100).toFixed(1)
+
+        const {data} = await client
+            .from('wishlist')
+            .select('id')
+            .eq('globalId', card.value.id)
+            .eq('user_id', user.value.sub)
+
+        console.log("wishlist test:", data)
+        isWishlisted.value = data.length > 0
+        if(isWishlisted.value == true) {
+            wishlist.value = "wishlisted"
+        }
     }
 
     
-    onMounted(() => {
+    onMounted(async () => {
+        await until(user.value).toBeTruthy()
         getCard();
-        console.log(card.value)
 
     })
+
+    const wishCard = async () => {
+        if (isWishlisted.value == false) {
+            const wishCard = card.value;
+            const imgWish = wishCard.image + '/low.jpg'
+            const icon = wishCard.set.symbol + '.png';
+            try {
+                const {error} = await client
+                    .from('wishlist')
+                    .insert({
+                        globalId: wishCard.id,
+                        localId: wishCard.localId,
+                        image: imgWish, 
+                        name: wishCard.name, 
+                        avgPrice: wishCard.pricing?.cardmarket?.avg, 
+                        setName: wishCard.set.name, 
+                        setIcon: icon,
+                        user_id: user.value.id
+                    });
+                if (error) throw error;
+                isWishlisted.value = true;
+                wishlist.value = "wishlisted"
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+    }
     
 </script>
 
@@ -126,7 +171,10 @@
                 </div>
             </div>
             <div class="flex flex-row gap-[0.5rem] w-[38rem] justify-between absolute bottom-[1rem]">
-                <div class="text-white bg-neutral-400 p-[0.5rem] rounded-lg flex-1 text-center  cursor-pointer">wishlist</div>
+                <div :class="[!isWishlisted ? 'text-white bg-neutral-400 p-[0.5rem] rounded-lg flex-1 text-center cursor-pointer' : 'text-white bg-neutral-400 p-[0.5rem] rounded-lg flex-1 text-center cursor-pointer opacity-50']" @click="wishCard" v-motion="{
+                    initial: {scale: 1},
+                    hovered: {scale: 1.04}
+                }">{{wishlist}}</div>
                 <div class="text-white bg-red-500 p-[0.5rem] rounded-lg flex-1 text-center cursor-pointer">collect</div>
             </div>
         </div>
