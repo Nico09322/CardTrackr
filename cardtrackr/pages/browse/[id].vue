@@ -139,11 +139,13 @@
                 </div>
             </div>
             <div >
-                <div class="flex flex-row text-neutral-300 items-center gap-[1rem] mb-[1rem]">
+                <div class="flex flex-row text-neutral-300 items-center gap-[1rem] mb-[0.5rem]">
                     <div>info</div>
                     <div class="w-full h-[0.125rem] bg-neutral-200 rounded-lg"></div>
                 </div>
+                <div class="text-center text-neutral-200">Prices may be inaccurate</div>
                 <div class="bg-white w-full h-[10rem] flex items-center justify-center rounded-lg shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] relative mb-[3.5rem]" >
+
                     <div class="flex flex-row items-center gap-[1rem] z-20" >
                         <div class="text-neutral-600 flex gap-[0.25rem] items-center justify-end flex-col h-[8rem]">
                             <div class="items-center justify-center flex"></div>
