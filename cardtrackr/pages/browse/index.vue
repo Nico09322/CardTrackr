@@ -3,6 +3,7 @@
     import {Combobox,ComboboxInput,ComboboxOptions,ComboboxOption, ComboboxButton,} from '@headlessui/vue'
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import nameMap from '~/assets/nameMap.json'
 
     gsap.registerPlugin(ScrollTrigger)     
 
@@ -263,8 +264,9 @@
         }
 
         if (name && name !== "") {
-            const data = await tcgdex.card.list(new Query().like('name', name));
-            renderData.value = { cards: data.cards || data }; 
+            const translatedName = nameMap[name.toLowerCase()] ?? name
+            const data = await tcgdex.card.list(new Query().like('name', translatedName))
+            renderData.value = { cards: data.cards || data }
             return;
         }
 
