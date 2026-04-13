@@ -82,8 +82,11 @@
 
             </div>
             <div class="flex flex-row gap-[1rem] items-center">
-               <div class="flex flex-row gap-[0.5rem] text-zinc-500">
+               <div class="flex flex-row gap-[0.5rem] text-zinc-500 items-center">
                     <div class="text-zinc-300">{{ percentage.toFixed(2) }}%</div>
+                    <div class="w-[10rem] h-[0.15rem] bg-zinc-700 rounded-full">
+                        <div class="h-full bg-red-500 rounded-full" :style="{ width: percentage.toFixed(2) + '%'}"></div>
+                    </div>
                     <div >completed</div>
                </div>
                 <div class="w-[2rem] h-[2rem] bg-zinc-700 rounded-full flex justify-center items-center cursor-pointer" @click="isOpen = !isOpen">
