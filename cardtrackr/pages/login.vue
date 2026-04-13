@@ -48,21 +48,21 @@
 
 <template>
     <div class="flex justify-center items-center w-full h-[100vh]">
-        <div class="flex items-center flex-col bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[1rem] p-[2rem] rounded-lg">
+        <div class="flex items-center flex-col bg-zinc-900 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[1rem] p-[2rem] rounded-lg">
             <img :src="logo" class="w-[3rem] "/>
-            <div class="text-[2rem] mt-[1rem]">{{ sign === 'in' ? 'Sign In' : 'Register' }} with email</div>
+            <div class="text-[2rem] text-zinc-300 mt-[1rem]">{{ sign === 'in' ? 'Sign In' : 'Register' }} with email</div>
             <div v-if="errorMsg" class="text-red-500 mt-2 text-center">{{ errorMsg }}</div>
             <div class="mt-[2rem]">
                 <form class="flex flex-col gap-[1rem]" @submit.prevent="sign === 'in' ? signIn() : signUp()">
-                    <div class="flex flex-row items-center bg-neutral-100 p-[0.5rem] gap-[0.5rem] rounded-lg">
-                        <Icon name="ic:round-email" class="w-[1rem] bg-neutral-500"/>
-                        <input v-model="email" class="bg-neutral-100 outline-none w-[20rem] h-[2rem]" required placeholder="email" type="email"/>
+                    <div class="flex flex-row items-center bg-zinc-600 p-[0.5rem] gap-[0.5rem] rounded-lg">
+                        <Icon name="ic:round-email" class="w-[1rem] bg-neutral-300"/>
+                        <input v-model="email" class="bg-zinc-600 outline-none w-[20rem] text-zinc-300 h-[2rem]" required placeholder="email" type="email"/>
                     </div>
-                    <div class="flex flex-row items-center bg-neutral-100 p-[0.5rem] gap-[0.5rem] rounded-lg">
-                        <Icon name="tabler:lock-filled" class="w-[1rem] bg-neutral-500"/>
-                        <input v-model="password" class="bg-neutral-100 outline-none w-[20rem] h-[2rem]" required placeholder="password" type="password"/>
+                    <div class="flex flex-row items-center bg-zinc-600 p-[0.5rem] gap-[0.5rem] rounded-lg">
+                        <Icon name="tabler:lock-filled" class="w-[1rem] bg-neutral-300"/>
+                        <input v-model="password" class="bg-zinc-600 outline-none w-[20rem] text-zinc-300 h-[2rem]" required placeholder="password" type="password"/>
                     </div>
-                    <button type="submit" class="flex items-center justify-center bg-neutral-300 hover:bg-red-500 hover:text-white duration-75 rounded-lg h-[2rem]">
+                    <button type="submit" class="flex items-center justify-center bg-zinc-500 text-zinc-300 hover:bg-red-500 hover:text-white duration-75 rounded-lg h-[2rem]">
                         {{ sign === 'in' ? 'Login' : 'Register' }}
                     </button>
 
