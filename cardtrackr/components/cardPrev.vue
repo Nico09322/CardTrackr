@@ -37,7 +37,7 @@
     const collectButton = ref(null);
 
     onMounted(() => {
-        url.value = props.image + '/low.jpg';
+        url.value = props.image + '/low.webp';
         displayName.value = props.name;
         displayId.value = props.id;
         displayPrice.value = props.price;
@@ -86,8 +86,8 @@
 
     const wishCard = async () => {
         const wishCard = await tcgdex.card.get(props.globalID);
-        const img = wishCard.image + '/low.jpg'
-        const icon = wishCard.set.symbol + '.png';
+        const img = wishCard.image + '/low.webp'
+        const icon = wishCard.set.symbol + '.webp';
         try {
             const {error} = await client
                 .from('wishlist')
@@ -110,9 +110,9 @@
 
     const collectCard = async () => {
         const collectCard = await tcgdex.card.get(props.globalID);
-        const img = collectCard.image + '/low.jpg';
-        const logo = collectCard.set.logo + '.png';
-        const icon = collectCard.set.symbol + '.png';
+        const img = collectCard.image + '/low.webp';
+        const logo = collectCard.set.logo + '.webp';
+        const icon = collectCard.set.symbol + '.webp';
         try {
             const {error} = await client
                 .from('collection')
@@ -165,12 +165,12 @@
 
 <template>
 
-    <div class="w-[11rem] md:w-[18rem] h-[19rem] md:h-[26rem] bg-white rounded-lg p-[0.5rem] border-[0.15rem] border-white hover:border-red-500 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)]">
+    <div class="w-[11rem] md:w-[18rem] h-[19rem] md:h-[26rem] bg-zinc-900 rounded-lg p-[0.5rem] border-[0.15rem] border-zinc-700 hover:border-red-500 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)]">
         <div>
-            <div class="flex flex-col md:flex-row place-content-between gap-1">
+            <div class="flex flex-col md:flex-row place-content-between gap-1 items-center">
                 <div class="flex flex-row gap-2">
-                    <div class="font-semibold text-neutral-600 h-[1.5rem] overflow-hidden">{{ displayName }}</div>
-                    <div class="text-neutral-300">#{{ displayId }}</div>
+                    <div class="font-semibold text-zinc-300 h-[1.5rem] overflow-hidden">{{ displayName }}</div>
+                    <div class="text-zinc-600">#{{ displayId }}</div>
                 </div>
                 <div class="flex flex-row place-content-center md:place-content-start gap-2">
                     <div :class="[!isWishlisted ? 'md:w-[2rem] w-[4rem] h-[2rem] border-[0.15rem] border-neutral-400 rounded-lg flex justify-center items-center' : 'md:w-[2rem] w-[4rem] h-[2rem] border-[0.15rem] border-neutral-400 duration-200 rounded-lg flex justify-center items-center pointer-events-none']" @click="wishCard" v-motion="{initial:{scale:1},hovered:{scale:1.1, transition:{type:'spring',stiffness: 350, mass: 0.1}}}">
@@ -188,10 +188,10 @@
                         <div v-if="!error">
                             <img @error="error = true" :src="url" class="rounded-lg duration-150 hover:scale-105">
                         </div>
-                        <div v-else class="bg-neutral-200 w-[9rem] md:w-[14.5rem] h-[13rem] md:h-[21rem] rounded-lg flex justify-center items-center">
+                        <div v-else class="bg-zinc-700 w-[9rem] md:w-[14.5rem] h-[13rem] md:h-[21rem] rounded-lg flex justify-center items-center">
                             <div class="flex flex-col justify-center items-center">
                                 <pokeball />
-                                <div class="text-[0.8rem] text-neutral-400">no image found</div>                         
+                                <div class="text-[0.8rem] text-zinc-400">no image found</div>                         
                             </div>
 
                         </div>

@@ -97,15 +97,15 @@
                 </NuxtLink>
             </div>
             <div class="flex flex-row w-full gap-[1rem] text-[2rem] place-content-between">
-                <div class="font-bold">{{ card?.name }}</div>
-                <div class="text-neutral-400">#{{ card?.localId }}</div>
+                <div class="font-bold text-zinc-300">{{ card?.name }}</div>
+                <div class="text-zinc-500">#{{ card?.localId }}</div>
             </div>
             <div class="mt-[1rem]">
                 <img :src="img" alt="" class="rounded-xl w-[25rem]"/>
 
             </div>
         </div>
-        <div class="w-[40rem] shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] rounded-lg p-[1rem] relative">
+        <div class="w-[40rem] shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] bg-zinc-900 border-[0.15rem] border-zinc-700 rounded-lg p-[1rem] relative">
             <div class="flex flex-row items-center gap-5 mb-[0.5rem]" 
                 
             >
@@ -116,45 +116,45 @@
                 <div v-if="!set">{{ setName}}</div>
             </div>
             <div v-if="card?.abilities" class="mb-[2rem]">
-                <div v-if="card.abilities" class="flex flex-row text-neutral-300 items-center gap-[1rem]">
+                <div v-if="card.abilities" class="flex flex-row text-zinc-500 items-center gap-[1rem]">
                     <div>abilities</div>
-                    <div class="w-full h-[0.125rem] bg-neutral-200 rounded-lg"></div>
+                    <div class="w-full h-[0.125rem] bg-zinc-500 rounded-lg"></div>
                 </div>
                 <div v-for="ability in card.abilities" class="ml-[1rem] mt-[0.5rem]">
                     <div class="text-red-500 text-[1.25rem]">{{ ability.name }}</div>
-                    <div class="text-neutral-500">{{ ability.effect }}</div>
+                    <div class="text-zinc-400">{{ ability.effect }}</div>
                 </div>
             </div>
             <div class="mb-[2rem]">
-                <div class="flex flex-row text-neutral-300 items-center gap-[1rem]">
+                <div class="flex flex-row text-zinc-500 items-center gap-[1rem]">
                     <div>attacks</div>
-                    <div class="w-full h-[0.125rem] bg-neutral-200 rounded-lg"></div>
+                    <div class="w-full h-[0.125rem] bg-zinc-500 rounded-lg"></div>
                 </div>
                 <div v-for="attack in card.attacks" class="ml-[1rem] mt-[0.5rem] flex flex-col">
                     <div class="text-red-500 text-[1.25rem] flex flex-row gap-2">
                         <div>{{ attack.name }}</div>
-                        <div class="text-neutral-600">{{ attack.damage }}</div>
+                        <div class="text-zinc-500">{{ attack.damage }}</div>
                     </div>
-                    <div class="text-neutral-500">{{ attack.effect }}</div>
+                    <div class="text-zinc-400">{{ attack.effect }}</div>
                 </div>
             </div>
-            <div >
-                <div class="flex flex-row text-neutral-300 items-center gap-[1rem] mb-[0.5rem]">
+            <div v-if="card.pricing.cardmarket">
+                <div class="flex flex-row text-zinc-500 items-center gap-[1rem] mb-[0.5rem]">
                     <div>info</div>
-                    <div class="w-full h-[0.125rem] bg-neutral-200 rounded-lg"></div>
+                    <div class="w-full h-[0.125rem] bg-zinc-500 rounded-lg"></div>
                 </div>
-                <div class="text-center text-neutral-200">Prices may be inaccurate</div>
-                <div class="bg-white w-full h-[10rem] flex items-center justify-center rounded-lg shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] relative mb-[3.5rem]" >
+                <div class="text-center text-zinc-600">Prices may be inaccurate</div>
+                <div class="bg-zinc-800 w-full h-[10rem] flex items-center justify-center rounded-lg shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] relative mb-[3.5rem]" >
 
                     <div class="flex flex-row items-center gap-[1rem] z-20" >
                         <div class="text-neutral-600 flex gap-[0.25rem] items-center justify-end flex-col h-[8rem]">
                             <div class="items-center justify-center flex"></div>
-                            <div class="bg-neutral-300 w-[5rem] h-[3.5rem] rounded-lg text-white items-center justify-center flex">{{ card.pricing.cardmarket.avg7 }}<Icon class="bg-white" name="material-symbols:euro-rounded"/></div>
+                            <div class="bg-zinc-600 w-[5rem] h-[3.5rem] rounded-lg text-white items-center justify-center flex">{{ card.pricing.cardmarket.avg7 }}<Icon class="bg-white" name="material-symbols:euro-rounded"/></div>
                             <div class="text-neutral-400">7 day ∅</div>
                         </div>
                         <div class="text-neutral-600 flex gap-[0.25rem] items-center justify-end flex-col h-[8rem]">
                             <div class="items-center justify-center flex"></div>
-                            <div class="bg-neutral-400 w-[5rem] h-[4.5rem] rounded-lg text-white items-center justify-center flex">{{ card.pricing.cardmarket.avg30 }}<Icon class="bg-white" name="material-symbols:euro-rounded"/></div>
+                            <div class="bg-zinc-500 w-[5rem] h-[4.5rem] rounded-lg text-white items-center justify-center flex">{{ card.pricing.cardmarket.avg30 }}<Icon class="bg-white" name="material-symbols:euro-rounded"/></div>
                             <div class="text-neutral-400">30 day ∅</div>
                         </div>
                         <div class="text-neutral-600 flex gap-[0.25rem] items-center justify-end flex-col h-[8rem]">
@@ -164,11 +164,11 @@
                         </div>                        
                     </div>
                     <div class="absolute w-full  flex flex-col gap-[1rem]">
-                        <div class="h-[2px] bg-neutral-50"></div>
-                        <div class="h-[2px] bg-neutral-50"></div>
-                        <div class="h-[2px] bg-neutral-100"></div>
-                        <div class="h-[2px] bg-neutral-100"></div>
-                        <div class="h-[2px] bg-neutral-200"></div>
+                        <div class="h-[2px] bg-zinc-700/20"></div>
+                        <div class="h-[2px] bg-zinc-700/50"></div>
+                        <div class="h-[2px] bg-zinc-700/70"></div>
+                        <div class="h-[2px] bg-zinc-700/90"></div>
+                        <div class="h-[2px] bg-zinc-700"></div>
                     </div>
                 </div>
             </div>

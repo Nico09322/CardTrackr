@@ -97,11 +97,11 @@ import { onMounted } from "vue";
 </script>
 
 <template>
-    <div :class="[isSelected ? 'bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] p-[1rem] rounded-lg flex flex-col gap-[1rem] w-[11rem] md:w-[18rem] items-center border-[0.15rem] border-red-500' : 'bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] p-[1rem] rounded-lg flex flex-col gap-[1rem] w-[11rem] md:w-[18rem] items-center border-[0.15rem] border-white hover:border-red-500']" @click="handleClick">
+    <div :class="[isSelected ? 'bg-zinc-900 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] p-[1rem] rounded-lg flex flex-col gap-[1rem] w-[11rem] md:w-[18rem] items-center border-[0.15rem] border-zinc-700' : 'bg-zinc-900 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] p-[1rem] rounded-lg flex flex-col gap-[1rem] w-[11rem] md:w-[18rem] items-center border-[0.15rem] border-zinc-700 hover:border-red-500']" @click="handleClick">
         <div class="flex flex-col md:flex-row place-content-between w-full">
             <div class="flex flex-row gap-1">
-                <div>{{ props.name }}</div>
-                <div class="text-neutral-400">#{{ props.localId }}</div>
+                <div class="text-zinc-300">{{ props.name }}</div>
+                <div class="text-zinc-600">#{{ props.localId }}</div>
             </div>
             <div v-if="props.price">{{ props.price }}€</div>
         </div>

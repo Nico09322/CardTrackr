@@ -149,8 +149,12 @@
     const loadMoreTrigger = ref(null);
     const cardsContainer = ref(null);
 
+    let observer = null; // außerhalb, damit wir ihn disconnect können
+
     const setupIntersectionObserver = () => {
-        const observer = new IntersectionObserver((entries) => {
+        if (observer) observer.disconnect(); // ← alten Observer zerstören
+        
+        observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && visibleCards.value.length < (renderData.value?.cards?.length || 0)) {
                     loadMoreCards();
@@ -163,8 +167,6 @@
         if (loadMoreTrigger.value) {
             observer.observe(loadMoreTrigger.value);
         }
-
-        return observer;
     };
 
     const animateCards = () => {
@@ -225,6 +227,9 @@
             cardsToShow.value = 50;
             visibleCards.value = newCards.slice(0, 20);
             animateCards();
+            nextTick(() => {
+                setupIntersectionObserver(); // ← neu aufsetzen nach Suchergebnis
+            });
         }
     });
 
@@ -286,14 +291,14 @@
 
 <template>
     <div class="flex flex-col items-center ">
-        <div class="w-[80%] h-[16.5rem] md:h-[8.5rem] bg-white shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[5rem] lg:mt-[10rem] rounded-lg p-[1rem] z-10">
+        <div class="w-[80%] h-[16.5rem] md:h-[8.5rem] bg-zinc-900 border-[0.15rem] border-zinc-700 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[5rem] lg:mt-[10rem] rounded-lg p-[1rem] z-10">
             <div class="text-neutral-300 font-bold text-[1.5rem] mb-[1rem]">Find cards</div>
             <div class="flex flex-col md:flex-row gap-[1rem]">
-                <input v-model="cardName" type="text" placeholder="Name" class="bg-neutral-100 rounded-lg p-[0.5rem] h-[3rem] outline-none border-[0.15rem] border-neutral-200 focus:border-red-500"/>
+                <input v-model="cardName" type="text" placeholder="Name" class="bg-zinc-700 rounded-lg p-[0.5rem] h-[3rem] outline-none border-[0.15rem] border-zinc-600 focus:border-red-500"/>
                 <div :class="[cardName ? 'opacity-30 pointer-events-none' : 'opacity-100']">
                     <Combobox v-model="selectedSet">
-                        <div class="bg-neutral-100 h-[3rem] text-neutral-500 pl-[1rem] pt-[0.5rem] pr-[1rem] rounded-lg border-neutral-200 border-[0.15rem] ">
-                            <ComboboxInput @change="query = $event.target.value" :display-value="(set) => set.name" class="bg-neutral-100 outline-none"/>
+                        <div class="bg-zinc-700 h-[3rem] text-neutral-500 pl-[1rem] pt-[0.5rem] pr-[1rem] rounded-lg border-zinc-600 border-[0.15rem] ">
+                            <ComboboxInput @change="query = $event.target.value" :display-value="(set) => set.name" class="bg-zinc-700 outline-none"/>
                             
                             <ComboboxButton>
                                 <div  class="hover:bg-red-500 w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-lg group duration-75">
@@ -301,10 +306,10 @@
                                 </div>
                             </ComboboxButton>
                         </div>
-                        <div class="bg-neutral-100 mt-[0.5rem] rounded-lg max-h-[15rem] overflow-auto text-neutral-500 absolute">
+                        <div class="bg-zinc-700 mt-[0.5rem] rounded-lg max-h-[15rem] overflow-auto text-neutral-500 absolute">
                             <ComboboxOptions class="">
                                 <div>
-                                    <ComboboxOption v-for="set in filteredSets" :key="set.code" :value="set" class=" hover:text-neutral-700 hover:bg-neutral-200 rounded-lg h-[1.75rem] pl-[0.5rem]" @click="dropDown = false">
+                                    <ComboboxOption v-for="set in filteredSets" :key="set.code" :value="set" class=" hover:text-zinc-300 hover:bg-zinc-600 rounded-lg h-[1.75rem] pl-[0.5rem]" @click="dropDown = false">
                                         {{ set.name }}
                                     </ComboboxOption>
                                 </div>
@@ -325,7 +330,7 @@
                 }">Search</div>
             </div>
         </div>
-        <div class="font-bold text-[2rem] mt-[2rem] text-neutral-300">{{ renderData?.name }}</div>
+        <div class="font-bold text-[2rem] mt-[2rem] text-zinc-500">{{ renderData?.name }}</div>
         <div ref="cardsContainer" class="flex gap-[1rem] flex-wrap content-start items-center justify-center mt-[1rem] w-[95%] sm:w-[90%]">
             <CardPrev 
                 v-if="wishlist && collection" 
