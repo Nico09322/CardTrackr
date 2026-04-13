@@ -42,9 +42,9 @@ import { onMounted } from "vue";
 <template>
     <div class="group bg-zinc-900 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] p-[1rem] flex flex-col gap-[1rem] w-[10rem] md:w-[18rem] duration-200 items-center border-[0.15rem] rounded-lg border-zinc-800 hover:border-red-500 hover:z-20" @click="handleClick">
         <div class="flex flex-col md:flex-row place-content-between w-full">
-            <div class="flex flex-row gap-1">
+            <div class="flex flex-row justify-between w-full">
                 <div class="text-[0.75rem] text-zinc-300 md:text-[1rem] h-[2rem] overflow-clip">{{ props.name }}</div>
-                <div class="text-neutral-600">({{ props.localId }})</div>
+                <div class="text-neutral-600">#{{ props.localId }}</div>
             </div>
         </div>
         <div class="flex justify-center">

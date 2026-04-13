@@ -71,7 +71,7 @@
 
 <template>
 
-    <div ref="parent" class="bg-zinc-900 border-[0.15rem] border-zinc-800 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] w-[95%] md:w-3/4 p-[1rem] rounded-lg">
+    <div ref="parent" class="bg-zinc-900 border-[0.15rem] border-zinc-800 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] w-[95%] md:w-3/4 [&>div:not(.exclude)]:p-[1rem] rounded-lg">
         <div class="flex flex-row place-content-between">
             <div class=" flex flex-row items-center gap-[1rem]">
                 <img v-if="!error" @error="error = true" :src="props.logo" class="max-h-[2rem]" alt=""/>
@@ -92,7 +92,8 @@
             </div>
            
         </div>
-        <div v-if="isOpen" class="flex justify-end mt-[2rem]">
+        <div v-if="isOpen" class="w-full h-[0.15rem] exclude bg-zinc-800 mt-[1rem]"></div>
+        <div v-if="isOpen" class="flex justify-end mt-[0rem]">
             <button  @click="showUnowned = !showUnowned" class=" h-[2rem] text-[0.75rem] px-[0.5rem] py-[0.25rem] rounded-lg border-[0.15rem] duration-200" :class="showUnowned ? 'bg-red-500 text-white border-red-500' : 'bg-zinc-600 text-neutral-400 border-zinc-400 hover:border-red-500'"> show unowned </button>
         </div >   
         <div v-if="isOpen" class="inline-flex gap-[0.5rem] flex-wrap content-start items-center justify-center mt-[1rem] rounded-lg ">  
