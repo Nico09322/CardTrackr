@@ -2,11 +2,6 @@
 
     import TCGdex from "@tcgdex/sdk";
     import { gsap } from "gsap";
-    import confetti from 'canvas-confetti';
-    import { useAutoAnimate } from '@formkit/auto-animate/vue'
-
-    const [parent] = useAutoAnimate()
-    
     
     const router = useRouter()
     
@@ -191,11 +186,11 @@
                                 <div class="delay-0 text-green-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">collected</div>
                             </div>
                             <div v-if="!isWishlisted"  class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-zinc-500/50 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-zinc-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" @click="wishCard">
-                                <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-zinc-100" />
+                                <Icon name="material-symbols-light:bookmark-outline-rounded" size="1.5rem" class="bg-zinc-100" />
                                 <div class="delay-0 text-zinc-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">wishlist</div>
                             </div>
-                            <div v-if="isWishlisted"  class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-zinc-500 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-zinc-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" >
-                                <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-zinc-100" />
+                            <div v-if="isWishlisted"  class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-zinc-500 w-[2rem] hover:w-fit duration-200 h-[2rem] p-[0.25rem] border border-zinc-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" >
+                                <Icon name="material-symbols-light:bookmark-outline-rounded" size="1.5rem" class="bg-zinc-100" />
                                 <div class="delay-0 text-zinc-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">wishlisted</div>
                             </div>                            
                         </div>
@@ -220,11 +215,11 @@
                                     <div class="delay-0 text-green-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">collected</div>
                                 </div>
                                 <div v-if="!isWishlisted"  class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-zinc-500/50 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-zinc-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" @click="wishCard">
-                                    <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-zinc-100" />
+                                    <Icon name="material-symbols-light:bookmark-outline-rounded" size="1.5rem" class="bg-zinc-100" />
                                     <div class="delay-0 text-zinc-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">wishlist</div>
                                 </div>
                                 <div v-if="isWishlisted"  class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-zinc-500 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-zinc-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]">
-                                    <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-zinc-100" />
+                                    <Icon name="material-symbols-light:bookmark-outline-rounded" size="1.5rem" class="bg-zinc-100" />
                                     <div class="delay-0 text-zinc-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">wishlisted</div>
                                 </div> 
                             </div>
