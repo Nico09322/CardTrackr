@@ -118,7 +118,16 @@ const collectCard = async () => {
                         <pokeball />
                         <div class="text-[0.8rem] text-neutral-400">no image found</div>
                     </div>
-
+                    <div  class="absolute w-full h-full p-[1rem] flex flex-row justify-between">
+                        <div class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-green-500/50 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-green-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" @click="collectCard">
+                            <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-green-100" />
+                            <div class="delay-0 text-green-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">collect</div>
+                        </div>
+                        <div class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-red-500/50 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-red-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" @click="remove">
+                            <Icon name="streamline:delete-1-solid" size="0.75rem" class="bg-green-100" />
+                            <div class="delay-0 text-green-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">remove</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

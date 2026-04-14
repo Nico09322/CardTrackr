@@ -57,12 +57,18 @@ import { onMounted } from "vue";
                         <div class="delay-0 text-red-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">remove</div>
                     </div>
                 </div>
-                <div v-else class="bg-neutral-200 w-[9rem] md:w-[14.5rem] h-[13rem] md:h-[21rem] rounded-lg flex justify-center items-center">
+                <div v-else class="bg-zinc-700 w-[9rem] md:w-[14.5rem] h-[13rem] md:h-[21rem] rounded-lg flex justify-center items-center">
                     <div class="flex flex-col justify-center items-center">
                         <pokeball />
-                        <div class="text-[0.8rem] text-neutral-400">no image found</div>                         
+                        <div class="text-[0.8rem] text-zinc-300">no image found</div>                         
                     </div>
-
+                    <div class="overflow-hidden text-neutral-900 p-[1rem] flex flex-row justify-between absolute rounded-lg  group-hover:opacity-100 w-full h-full opacity-0 duration-100">
+                        <div class="-translate-y-10 group-hover:translate-y-0 delay-75 duration-200 text-green-100 bg-green-400/50 w-fit h-[2rem] p-[0.25rem] rounded-lg border border-green-300">{{ price }}€</div>
+                        <div class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-red-500/50 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-red-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" @click="remove">
+                            <Icon name="streamline:delete-1-solid" size="0.75rem" class="bg-red-100"/>
+                            <div class="delay-0 text-red-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">remove</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

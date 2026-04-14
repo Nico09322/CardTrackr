@@ -3,6 +3,9 @@
     import TCGdex from "@tcgdex/sdk";
     import { gsap } from "gsap";
     import confetti from 'canvas-confetti';
+    import { useAutoAnimate } from '@formkit/auto-animate/vue'
+
+    const [parent] = useAutoAnimate()
     
     
     const router = useRouter()
@@ -165,36 +168,68 @@
 
 <template>
 
-    <div class="w-[11rem] md:w-[18rem] h-[19rem] md:h-[26rem] bg-zinc-900 rounded-lg p-[0.5rem] border-[0.15rem] border-zinc-700 hover:border-red-500 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)]">
+    <div  class="w-[11rem] duration-200 md:w-[18rem] h-[19rem] md:h-[26rem] bg-zinc-900 rounded-lg p-[0.5rem] border-[0.15rem] border-zinc-700 hover:border-red-500 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] group">
         <div>
             <div class="flex flex-col md:flex-row place-content-between gap-1 items-center">
-                <div class="flex flex-row gap-2">
+                <div class="flex flex-row justify-between w-full">
                     <div class="font-semibold text-zinc-300 h-[1.5rem] overflow-hidden">{{ displayName }}</div>
                     <div class="text-zinc-600">#{{ displayId }}</div>
                 </div>
-                <div class="flex flex-row place-content-center md:place-content-start gap-2">
-                    <div :class="[!isWishlisted ? 'md:w-[2rem] w-[4rem] h-[2rem] border-[0.15rem] border-neutral-400 rounded-lg flex justify-center items-center' : 'md:w-[2rem] w-[4rem] h-[2rem] border-[0.15rem] border-neutral-400 duration-200 rounded-lg flex justify-center items-center pointer-events-none']" @click="wishCard" v-motion="{initial:{scale:1},hovered:{scale:1.1, transition:{type:'spring',stiffness: 350, mass: 0.1}}}">
-                        <bookmark :isWishlisted="isWishlisted"/>
-                    </div>
-                    <div ref="collectButton" :class="[!isCollected ? ' group md:w-[2rem] w-[4rem] h-[2rem] bg-red-500 rounded-lg flex justify-center items-center' : 'group md:w-[2rem] w-[4rem] h-[2rem] bg-red-500 opacity-50 duration-200 rounded-lg flex justify-center items-center pointer-events-none']" @click="collectCard" v-motion="{initial:{scale:1},hovered:{scale:1.1, transition:{type:'spring',stiffness: 350, mass: 0.1}}}">
-                        <Icon name="ic:round-add" class="w-[1.5rem] h-[1.5rem] text-white group-hover:rotate-90 duration-300 ease-in-out"/>
-                    </div>
-                </div>
-                
-
             </div>
                 <div class="flex justify-center mt-[0.5rem] md:mt-[1rem]">
-                    <div class="group flex justify-center items-center hover:cursor-pointer" @click="moreDetail">
+                    <div class="group flex justify-center items-center hover:cursor-pointer relative overflow-hidden rounded-lg" >
                         <div v-if="!error">
-                            <img @error="error = true" :src="url" class="rounded-lg duration-150 hover:scale-105">
+                            <img @error="error = true" :src="url" class="rounded-lg duration-150 hover:scale-105 group-hover:opacity-50">
                         </div>
-                        <div v-else class="bg-zinc-700 w-[9rem] md:w-[14.5rem] h-[13rem] md:h-[21rem] rounded-lg flex justify-center items-center">
+                        <div v-if="!error" class="absolute w-full h-full flex flex-row justify-between p-[1rem]">
+                            <div v-if="!isCollected"  class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-green-500/50 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-green-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" @click="collectCard">
+                                <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-green-100" />
+                                <div class="delay-0 text-green-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">collect</div>
+                            </div>
+                            <div v-if="isCollected"  class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-green-500 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-green-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" >
+                                <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-green-100" />
+                                <div class="delay-0 text-green-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">collected</div>
+                            </div>
+                            <div v-if="!isWishlisted"  class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-zinc-500/50 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-zinc-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" @click="wishCard">
+                                <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-zinc-100" />
+                                <div class="delay-0 text-zinc-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">wishlist</div>
+                            </div>
+                            <div v-if="isWishlisted"  class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-zinc-500 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-zinc-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" >
+                                <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-zinc-100" />
+                                <div class="delay-0 text-zinc-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">wishlisted</div>
+                            </div>                            
+                        </div>
+                        <div v-if="!error"   class="absolute w-full h-full flex flex-row justify-between items-end p-[1rem] top-[2rem]">
+                            <div class="translate-y-20 group-hover:-translate-y-[2rem] grop-hover:delay-100 bg-zinc-500/50 w-full duration-200 h-[2rem] p-[0.25rem] border border-zinc-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" @click="moreDetail">
+                                <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-zinc-100" />
+                                <div  class="delay-0 text-zinc-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">more detail</div>
+                            </div>
+                        </div>
+                        <div v-else-if="error" class="bg-zinc-700 w-[9rem] md:w-[14.5rem] h-[13rem] md:h-[21rem] rounded-lg flex justify-center items-center">
                             <div class="flex flex-col justify-center items-center">
                                 <pokeball />
                                 <div class="text-[0.8rem] text-zinc-400">no image found</div>                         
                             </div>
-
+                                <div  class="absolute w-full h-full flex flex-row justify-between p-[1rem]">
+                                   <div v-if="!isCollected"  class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-green-500/50 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-green-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" @click="collectCard">
+                                <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-green-100" />
+                                <div class="delay-0 text-green-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">collect</div>
+                                </div>
+                                <div v-if="isCollected"  class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-green-500 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-green-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" >
+                                    <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-green-100" />
+                                    <div class="delay-0 text-green-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">collected</div>
+                                </div>
+                                <div v-if="!isWishlisted"  class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-zinc-500/50 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-zinc-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]" @click="wishCard">
+                                    <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-zinc-100" />
+                                    <div class="delay-0 text-zinc-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">wishlist</div>
+                                </div>
+                                <div v-if="isWishlisted"  class="-translate-y-20 group-hover:translate-y-0 grop-hover:delay-100 bg-zinc-500 w-[2rem] hover:w-[5rem] duration-200 h-[2rem] p-[0.25rem] border border-zinc-300 rounded-lg overflow-hidden group/delete flex flex-row justify-center items-center gap-[0.25rem]">
+                                    <Icon name="streamline:add-1-solid" size="0.75rem" class="bg-zinc-100" />
+                                    <div class="delay-0 text-zinc-100 translate-x-20 group-hover/delete:translate-x-0 hidden group-hover/delete:block duration-200">wishlisted</div>
+                                </div> 
+                            </div>
                         </div>
+     
                     </div>
 
 
