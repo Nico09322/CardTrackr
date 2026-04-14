@@ -17,7 +17,7 @@
                 :animationData="animURL"
                 :loop="true"
                 :autoPlay="true" 
-                style="width: 48px; height: 48px;"
+                style="width: 48px; height: 48px; color: "
             />
         </div>
 

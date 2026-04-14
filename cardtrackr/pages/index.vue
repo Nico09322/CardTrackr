@@ -93,19 +93,19 @@
 
 <template>
     <div class="bg-gradient-to-t from-red-500 to-transparent w-full h-[100vh] opacity-[15%] absolute pointer-events-none"></div>
+    <div class="bg-gradient-to-b from-red-500 to-transparent w-full h-[100vh] top-[100vh] opacity-[15%] absolute pointer-events-none"></div>
     <div class="flex flex-col w-full h-[100vh] justify-center items-center font-bold text-[2rem] sm:text-[3rem]" ref="headline">
-        <div  class="flex flex-row gap-3">
+        <div  class="flex flex-row gap-3 text-zinc-300">
             <div>Your</div>
             <div class="text-red-500">collection</div>
         </div>
-        <div>always at a glance</div>
+        <div class="text-zinc-300">always at a glance</div>
         <NuxtLink to="/browse" class=" select-none bg-red-500 text-white text-[1rem] pt-[1rem] pb-[1rem] pr-[2rem] pl-[2rem] rounded-lg mt-[2rem]" @mouseenter="growText" @mouseleave="shrinkText" @mousedown="tapButton" @mouseup="growText">Browse Cards</NuxtLink>
-        <scrollDown class="opacity-20 mt-[5rem]"/>
     </div>
     <div class="bg-gradient-to-b from-red-500 to-transparent w-full h-[230vh] opacity-[15%] absolute pointer-events-none -z-10">
             
     </div>
-    <div class="w-full flex flex-col items-center">
+    <div class="w-full flex flex-col items-center z-50 text-zinc-300">
         <div class="flex flex-col xl:flex-row gap-[5rem] items-center mb-[25rem]">
             <div class="font-bold flex flex-col w-[90%] sm:w-[30rem] " ref="subHead">
                 <div class="text-[2rem] sm:text-[3rem] mb-[1rem]">Browse & <span class="text-red-500">Discover</span></div>
