@@ -22,6 +22,4 @@
         </div>
 
     </client-only>
-
-
 </template>
