@@ -6,6 +6,7 @@ import CollectedSet from '~/components/collectedSet.vue';
     const user = useSupabaseUser();
     const value = ref(null)
     const count = ref(0)
+    const search = ref(null)
 
     const collection = ref([]);
     const sortedCollection = ref(null);
@@ -25,6 +26,17 @@ import CollectedSet from '~/components/collectedSet.vue';
             console.log(error);
         }
     }
+
+    const filteredCollection = computed(() => {
+        if (!sortedCollection.value) return {}
+        if (!search.value) return sortedCollection.value
+        
+        return Object.fromEntries(
+            Object.entries(sortedCollection.value).filter(([key]) =>
+            key.toLowerCase().includes(search.value.toLowerCase())
+            )
+        )
+    })
 
     const fetchValue = async () => {
         try {
@@ -71,10 +83,10 @@ import CollectedSet from '~/components/collectedSet.vue';
     <div class="flex justify-center items-center flex-col gap-[1rem]">
         <div class=" mt-[10rem] lg:mt-[10rem] w-[95%] md:w-3/4 rounded-lg flex flex-row place-content-between items-center">
             <div class="text-zinc-400 font-bold text-[2rem] flex flex-row items-center gap-[1rem]">
-                <div>My Cards</div>
+                <div class="">My Cards</div>
 
             </div>
-            <NuxtLink to="/browse" class="w-[7rem] font-black h-[2rem] bg-red-500 flex justify-center items-center text-zinc-900 rounded-lg cursor-pointer" v-motion="{
+            <NuxtLink to="/browse" class="w-[7rem] font-black h-[2rem] bg-red-500 flex justify-center items-center text-white rounded-lg cursor-pointer shadow-[0_0_15px_#ef4444] shadow-red-500/50" v-motion="{
                     initial: {
                         scale: 1,
                     },
@@ -98,12 +110,16 @@ import CollectedSet from '~/components/collectedSet.vue';
                 <div class="text-zinc-700 text-[0.9rem]">ESTIMATED VALUE</div>
                 <div class="text-zinc-400 text-[1.5rem] font-bold">{{value?.toFixed(2)}}€</div>
             </div>
+        </div>
+        <div class="w-[95%] lg:w-3/4 h-[0.15rem] bg-zinc-800"></div>
     </div>
+    <div class="flex mt-[3rem] justify-center flex-row">
+        <div class="w-[95%] lg:w-3/4">
+            <input v-model="search" placeholder="Seach sets..." class="h-[3rem] rounded-lg pl-[1rem] bg-zinc-800 text-zinc-200 border-[0.15rem] border-zinc-700 outline-none focus:border-red-500 focus:shadow-[0_0_15px_#ef4444] focus:shadow-red-500/50"/>
+        </div>
     </div>
-
-
-    <div v-if="collection.length > 0" class="flex flex-col items-center mt-[3rem] gap-[1rem] mb-[2rem]">
-        <CollectedSet v-for="set in sortedCollection" :name="set.name" :icon="set.icon" :logo="set.logo" :cards="set.cards" @removed="handleReload"/>
+    <div v-if="collection.length > 0" class="flex flex-col items-center mt-[1rem] gap-[1rem]">
+        <CollectedSet v-for="set in filteredCollection" :name="set.name" :icon="set.icon" :logo="set.logo" :cards="set.cards" @removed="handleReload"/>
 
     </div>
 </template>

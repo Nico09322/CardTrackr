@@ -73,10 +73,10 @@
 <template>
     <div class="hidden lg:block">
         <div class="flex justify-center lg:visible">
-            <div class="border-[0.15rem] border-zinc-700 fixed w-2/3 h-[5rem] bg-zinc-800 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] mt-[1rem] rounded-lg flex flex-row items-center place-content-between pr-[3rem] pl-[3rem] z-50">
+            <div class="border-b-[0.15rem] border-zinc-700 fixed w-full h-[5rem] bg-zinc-800 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] flex flex-row items-center place-content-between pr-[3rem] pl-[3rem] z-50">
                 <div class="flex flex-row items-center gap-[0.5rem]">
-                    <img :src="logo" class="w-[2rem]"/>
-                    <h1 class="font-bold">CardTrackr</h1>
+                    <div class="bg-red-500 w-[2rem] h-[2rem] rounded-lg flex justify-center items-center shadow-[0_0_15px_#ef4444] shadow-red-500/50"><Icon name="ic:round-check" class="w-[1.5rem] h-[1.5rem] bg-white"/></div>
+                    <h1 class="font-bold text-zinc-300">CardTrackr</h1>
                     <div class="text-red-500 border border-red-500 rounded-lg p-[0.5rem] pb-0 pt-0">beta</div>
                 </div>
                 <div class="flex flex-row gap-[3rem] cursor-pointer select-none items-center">
@@ -146,7 +146,7 @@
             <div :class="[showNav == false ? 'bg-zinc-800 w-[90%] h-[5rem] shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] relative rounded-lg mt-[1rem] p-[1rem] after:content-[\'\'] after:absolute after:top-0 after:left-0 after:w-full after:h-[5rem] after:bg-red-500 after:-z-40 after:rounded-lg duration-200 after:delay-100 after:duration-200' : 'bg-zinc-800 w-[90%] h-[23rem] duration-200 delay-100 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] relative rounded-lg mt-[1rem] p-[1rem] after:content-[\'\'] after:absolute after:top-0 after:left-0 after:w-full after:h-[23rem] after:bg-red-500 after:-z-40 after:rounded-lg after:duration-100']">
                 <div class="flex flex-row place-content-between items-center h-[3rem]">
                     <div class="flex flex-row items-center gap-[0.5rem]">
-                        <img :src="logo" class="w-[2rem]"/>
+                        <div class="bg-red-500 w-[2rem] h-[2rem] rounded-lg flex justify-center items-center"><Icon name="ic:round-check" class="w-[1.5rem] h-[1.5rem] bg-white"/></div>
                         <h1 class="font-bold text-zinc-300">CardTrackr</h1>
                         <div class="text-red-500 border border-red-500 rounded-lg p-[0.5rem] pb-0 pt-0">beta</div>
                     </div>

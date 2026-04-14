@@ -10,11 +10,13 @@ export default defineNuxtConfig({
     '@vueuse/motion/nuxt'
   ],
   fonts: {
-    google: {
-      families: {
-        Inter: true,
-      }
-    }
+    defaults: {
+      weights: [300, 400, 500, 600, 700, 800, 900],
+      styles: ['normal'],
+    },
+    families: [
+      { name: 'Geist', provider: 'google' }
+    ]
   },
   supabase: {
     url: process.env.SUPABASE_URL,

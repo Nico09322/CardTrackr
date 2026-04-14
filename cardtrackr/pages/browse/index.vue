@@ -317,7 +317,7 @@
                         </div>
                     </Combobox>
                 </div>
-                <div class="bg-red-500 h-[3rem] text-white md:w-[6rem] p-[0.5rem] flex justify-center items-center rounded-lg select-none cursor-pointer" @click="search(cardName, selectedSet)" v-motion="{
+                <div class="bg-red-500 h-[3rem] text-white md:w-[6rem] shadow-[0_0_15px_#ef4444] shadow-red-500/50 p-[0.5rem] flex justify-center items-center rounded-lg select-none cursor-pointer" @click="search(cardName, selectedSet)" v-motion="{
                     initial: {
                         scale: 1
                     },

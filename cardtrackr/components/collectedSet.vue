@@ -71,7 +71,7 @@
 
 <template>
 
-    <div ref="parent" class="bg-zinc-900 border-[0.15rem] border-zinc-800 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] w-[95%] md:w-3/4 [&>div:not(.exclude)]:p-[1rem] rounded-lg">
+    <div ref="parent" :class="isOpen ? 'bg-zinc-900 border-[0.15rem] border-red-500 shadow-[0_0_15px_#ef4444] shadow-red-500/50 w-[95%] md:w-3/4 [&>div:not(.exclude)]:p-[1rem] rounded-lg' : 'bg-zinc-900 border-[0.15rem] border-zinc-800 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] w-[95%] md:w-3/4 [&>div:not(.exclude)]:p-[1rem] rounded-lg'">
         <div class="flex flex-row place-content-between">
             <div class=" flex flex-row items-center gap-[1rem]">
                 <img v-if="!error" @error="error = true" :src="props.logo" class="max-h-[2rem]" alt=""/>
