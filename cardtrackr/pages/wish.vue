@@ -108,7 +108,7 @@
         <div class="w-full h-[0.15rem] mt-[1rem] bg-zinc-800"></div>            
         </div>
         <div class="flex mt-[3rem] justify-start flex-row w-[80%]">
-            <div class="w-[95%] lg:w-3/4 flex flex-row gap-[1rem]">
+            <div class="w-[95%] lg:w-3/4 flex flex-col lg:flex-row gap-[1rem]">
                 <input v-model="search" placeholder="Seach cards..." class="h-[3rem] rounded-lg pl-[1rem] bg-zinc-800 text-zinc-200 border-[0.15rem] border-zinc-700 outline-none focus:border-red-500 focus:shadow-[0_0_15px_#ef4444] focus:shadow-red-500/50"/>
                 <select v-model="selectedSet" class="h-[3rem] bg-zinc-800 text-zinc-200 border border-zinc-700 rounded-lg px-3">
                     <option v-for="set in availableSets" :key="set" :value="set">

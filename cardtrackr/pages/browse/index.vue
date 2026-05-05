@@ -297,8 +297,8 @@
                 <input v-model="cardName" type="text" placeholder="Name" class="bg-zinc-700 rounded-lg p-[0.5rem] h-[3rem] outline-none border-[0.15rem] border-zinc-600 focus:border-red-500"/>
                 <div :class="[cardName ? 'opacity-30 pointer-events-none' : 'opacity-100']">
                     <Combobox v-model="selectedSet">
-                        <div class="bg-zinc-700 h-[3rem] text-neutral-500 pl-[1rem] pt-[0.5rem] pr-[1rem] rounded-lg border-zinc-600 border-[0.15rem] ">
-                            <ComboboxInput @change="query = $event.target.value" :display-value="(set) => set.name" class="bg-zinc-700 outline-none"/>
+                        <div class="bg-zinc-700 h-[3rem] text-neutral-500 pl-[1rem] flex flex-row justify-between items-center pr-[1rem] rounded-lg border-zinc-600 border-[0.15rem] ">
+                            <ComboboxInput @change="query = $event.target.value" :display-value="(set) => set.name" class="bg-zinc-700 outline-none max-w-[14rem]"/>
                             
                             <ComboboxButton>
                                 <div  class="hover:bg-red-500 w-[1.5rem] h-[1.5rem] flex justify-center items-center rounded-lg group duration-75">
@@ -306,7 +306,7 @@
                                 </div>
                             </ComboboxButton>
                         </div>
-                        <div class="bg-zinc-700 mt-[0.5rem] rounded-lg max-h-[15rem] overflow-auto text-neutral-500 absolute">
+                        <div class="bg-zinc-700 mt-[0.5rem] rounded-lg max-h-[15rem] overflow-auto text-neutral-500 absolute z-40">
                             <ComboboxOptions class="">
                                 <div>
                                     <ComboboxOption v-for="set in filteredSets" :key="set.code" :value="set" class=" hover:text-zinc-300 hover:bg-zinc-600 rounded-lg h-[1.75rem] pl-[0.5rem]" @click="dropDown = false">

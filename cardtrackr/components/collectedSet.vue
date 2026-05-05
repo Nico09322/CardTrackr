@@ -82,7 +82,7 @@
 
             </div>
             <div class="flex flex-row gap-[1rem] items-center">
-               <div class="flex flex-row gap-[0.5rem] text-zinc-500 items-center">
+               <div class="lg:flex flex-row gap-[0.5rem] text-zinc-500 items-center hidden">
                     <div class="text-zinc-300">{{ percentage.toFixed(2) }}%</div>
                     <div class="w-[10rem] h-[0.15rem] bg-zinc-700 rounded-full">
                         <div class="h-full bg-red-500 rounded-full" :style="{ width: percentage.toFixed(2) + '%'}"></div>

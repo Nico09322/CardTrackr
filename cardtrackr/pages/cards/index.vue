@@ -81,7 +81,7 @@ import CollectedSet from '~/components/collectedSet.vue';
 
 <template>
     <div class="flex justify-center items-center flex-col gap-[1rem]">
-        <div class=" mt-[10rem] lg:mt-[10rem] w-[95%] md:w-3/4 rounded-lg flex flex-row place-content-between items-center">
+        <div class="mt-[4rem] lg:mt-[10rem] w-[95%] md:w-3/4 rounded-lg flex flex-row place-content-between items-center">
             <div class="text-zinc-400 font-bold text-[2rem] flex flex-row items-center gap-[1rem]">
                 <div class="">My Cards</div>
 

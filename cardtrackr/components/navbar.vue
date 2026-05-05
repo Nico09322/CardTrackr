@@ -142,74 +142,37 @@
         </div>
     </div>
    <div class=" lg:hidden">
-        <div :class="[showNav == false ? 'flex justify-center delay-200 h-[5rem] duration-200' : 'flex justify-center h-[23rem] duration-200']">
-            <div :class="[showNav == false ? 'bg-zinc-800 w-[90%] h-[5rem] shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] relative rounded-lg mt-[1rem] p-[1rem] after:content-[\'\'] after:absolute after:top-0 after:left-0 after:w-full after:h-[5rem] after:bg-red-500 after:-z-40 after:rounded-lg duration-200 after:delay-100 after:duration-200' : 'bg-zinc-800 w-[90%] h-[23rem] duration-200 delay-100 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] relative rounded-lg mt-[1rem] p-[1rem] after:content-[\'\'] after:absolute after:top-0 after:left-0 after:w-full after:h-[23rem] after:bg-red-500 after:-z-40 after:rounded-lg after:duration-100']">
-                <div class="flex flex-row place-content-between items-center h-[3rem]">
-                    <div class="flex flex-row items-center gap-[0.5rem]">
-                        <div class="bg-red-500 w-[2rem] h-[2rem] rounded-lg flex justify-center items-center"><Icon name="ic:round-check" class="w-[1.5rem] h-[1.5rem] bg-white"/></div>
-                        <h1 class="font-bold text-zinc-300">CardTrackr</h1>
-                        <div class="text-red-500 border border-red-500 rounded-lg p-[0.5rem] pb-0 pt-0">beta</div>
-                    </div>
-                    <div class="flex-col flex w-fit h-fit justify-center items-center leading-none space-y-[-2.25rem] group" @click="showNav = !showNav">
-                        <Icon name="clarity:minus-line"  size="3rem" :class="[showNav === false ? 'bg-neutral-600 duration-100' : 'bg-neutral-600 rotate-45 duration-200 ease-in-out translate-y-[0.38rem]']"/>
-                        <Icon name="clarity:minus-line"  size="3rem" :class="[showNav === false ? 'bg-neutral-600 duration-100' : 'bg-neutral-600 -rotate-45 duration-200 ease-in-out -translate-y-[0.38rem]']"/>
-                    </div>
-                </div>
-                <div :class="[showNav == false ? 'opacity-0' : 'opacity-100 duration-100 delay-200']">
-                    <div :class="[showNav == false ? 'flex flex-col gap-[1.5rem] cursor-pointer select-none  mt-[2rem]' : 'flex flex-col gap-[1.5rem] cursor-pointer select-none  mt-[2rem]']">
-                        <NuxtLink to="/" v-slot="{ isActive }" >
-                            <span :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg' : 'text-neutral-400 bg-zinc-700 p-[0.5rem] rounded-lg', ]" @click="showNav = false">Home</span>
-                        </NuxtLink>
-                        <NuxtLink to="/browse" v-slot="{ isActive }" >
-                            <span :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg' : 'text-neutral-400 bg-zinc-700 p-[0.5rem] rounded-lg', ]" @click="showNav = false">Browse</span>
-                        </NuxtLink>
-                        <NuxtLink to="/wish" v-slot="{ isActive }" >
-                            <span :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg' : 'text-neutral-400 bg-zinc-700 p-[0.5rem] rounded-lg', ]" @click="showNav = false">Wishlist</span>
-                        </NuxtLink>
-                        <NuxtLink to="/cards" v-slot="{ isActive }">
-                            <span :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg' : 'text-neutral-400 bg-zinc-700 p-[0.5rem] rounded-lg', ]" @click="showNav = false">My Cards</span>
-                        </NuxtLink>
-                        <div class="w-[18rem] h-[0.1rem] bg-zinc-700"></div>
-                        <div class="flex flex-row items-center gap-[0.5rem] text-neutral-500">
-                            <div class="w-[2.5rem] h-[2.5rem] rounded-full bg-zinc-600 flex justify-center items-center group hover:bg-red-500 duration-75" @click="handleClick">
-                                <Icon  name="mdi:user" class="bg-zinc-400 w-[1.5rem] h-[1.5rem] group-hover:bg-white duration-75"/>
-                            </div>
-                            <div class="" @click="handleClick">Profile</div>
-                        </div>
+         <div class="w-[80%] h-[4rem] bg-neutral-600 fixed bottom-4 z-50 rounded-lg left-1/2 -translate-x-1/2">
+            <div class="flex flex-row justify-between items-center p-[0.5rem] pr-[1rem] pl-[1rem] h-full">
+                <NuxtLink to="/" v-slot="{ isActive }" >
 
+                    <div :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg text-[0.5rem] flex flex-col justify-center items-center w-[4rem] ' : 'text-neutral-400 bg-zinc-700 p-[0.5rem] rounded-lg text-[0.5rem] flex flex-col justify-center items-center w-[4rem]', ]" @click="showNav = false">
+                        <Icon class="w-[1rem] h-[1rem]" name="material-symbols:home-outline-rounded"/>
+                        <div class="font-bold">HOME</div>
                     </div>
-                </div>
-               
-                <div v-if="showProfile" class="w-[20rem] bg-zinc-800 shadow-[0px_4px_13px_0px_rgba(0,_0,_0,_0.1)] rounded-lg fixed z-20 top-[25rem] left-[5%] p-[1rem] flex flex-col items-center">
-                    <div class="flex flex-row items-center place-content-between w-[18rem]">
-                        <div class="flex flex-row items-center gap-[1rem]">
-                            <div class="w-[2.5rem] h-[2.5rem] rounded-full bg-zinc-600 flex justify-center items-center group ">
-                                <Icon  name="mdi:user" class="bg-zinc-400 w-[1.5rem] h-[1.5rem]  "/>
-                            </div>
-                            <div class="text-zinc-400">{{ user.email }}</div>
-                        </div>
-                        <div class="bg-red-500 w-[1.5rem] h-[1.5rem] flex justify-center items-center text-white rounded-full group" @click="showProfile = false">
-                            <Icon name="fluent-emoji-high-contrast:cross-mark" class="group-hover:rotate-90 duration-300 w-[0.75rem] ease-in-out" />
-                        </div>
+                </NuxtLink>
+                <NuxtLink to="/browse" v-slot="{ isActive }" >
+
+                    <div :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg text-[0.5rem] flex flex-col justify-center items-center w-[4rem] ' : 'text-neutral-400 bg-zinc-700 p-[0.5rem] rounded-lg text-[0.5rem] flex flex-col justify-center items-center w-[4rem]', ]" @click="showNav = false">
+                        <Icon class="w-[1rem] h-[1rem]" name="material-symbols:browse"/>
+                        <div class="font-bold">BROWSE</div>
                     </div>
-                    <div class="w-[18rem] h-[0.1rem] bg-zinc-700 mt-[1rem]"></div>
-                    <div class="w-[18rem] mt-[1rem] text-neutral-600">
-                        <div class="flex flex-row gap-[3rem]">
-                            <div>Cards:</div>
-                            <div class="text-neutral-400">{{ count }}</div>
-                        </div>
-                        <div class="flex flex-row gap-[3rem]">
-                            <div>Value:</div>
-                            <div class="text-neutral-400">{{value.toFixed(2)}}€</div>
-                        </div>
+                </NuxtLink>
+                <NuxtLink to="/wish" v-slot="{ isActive }" >
+
+                    <div :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg text-[0.5rem] flex flex-col justify-center items-center w-[4rem] ' : 'text-neutral-400 bg-zinc-700 p-[0.5rem] rounded-lg text-[0.5rem] flex flex-col justify-center items-center w-[4rem]', ]" @click="showNav = false">
+                        <Icon class="w-[1rem] h-[1rem]" name="material-symbols:bookmark-outline-rounded"/>
+                        <div class="font-bold">WISHLIST</div>
                     </div>
-                    <div class="w-[18rem] mt-[1rem]">
-                        <div class="bg-red-500 w-[4rem] text-[0.8rem] flex justify-center items-center p-[0.25rem] rounded-lg text-white cursor-pointer" @mouseenter="growText" @mouseleave="shrinkText" @click="logOut">Log Out</div>
+                </NuxtLink>
+                <NuxtLink to="/cards" v-slot="{ isActive }" >
+
+                    <div :class="[isActive ? 'text-white bg-red-500 p-[0.5rem] rounded-lg text-[0.5rem] flex flex-col justify-center items-center w-[4rem] ' : 'text-neutral-400 bg-zinc-700 p-[0.5rem] rounded-lg text-[0.5rem] flex flex-col justify-center items-center w-[4rem]', ]" @click="showNav = false">
+                        <Icon class="w-[1rem] h-[1rem]" name="material-symbols:book-5-rounded"/>
+                        <div class="font-bold">MY CARDS</div>
                     </div>
-                </div>
+                </NuxtLink>
             </div>
         </div>
    </div>
-
-
 </template>
