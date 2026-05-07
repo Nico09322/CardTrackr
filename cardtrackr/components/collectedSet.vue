@@ -61,7 +61,7 @@
 
     const isOpen = ref(false);
 
-    const emit = defineEmits('removed');
+    const emit = defineEmits('removed', 'added');
 
     const handleEmit = () => {
         emit('removed');
@@ -102,7 +102,7 @@
         <div v-if="isOpen" class="inline-flex gap-[0.5rem] flex-wrap content-start items-center justify-center mt-[1rem] rounded-lg ">  
             <template v-if="showUnowned" v-for="card in allCards" :key="card.localId">
                 <collectedCard v-if="card.collected" :price="card.collectedData.avgPrice" :globalId="card.collectedData.globalId" :image="card.collectedData.image" :localId="card.collectedData.localId" :name="card.collectedData.name" :id="card.collectedData.id" @removed="handleEmit"/>
-                <MissingCard v-else :name="card.name" :localId="card.localId" :globalId="card.id" :image="`${card.image}/low.webp`" />
+                <MissingCard v-else :name="card.name" :localId="card.localId" :globalId="card.id" :image="`${card.image}/low.webp`" @added="emit('added')"/>
             </template>
             <template v-else>
                 <collectedCard v-for="card in sortedCards" :price="card.avgPrice" :globalId="card.globalId" :image="card.image" :localId="card.localId" :name="card.name" :id="card.id" @removed="handleEmit"/>

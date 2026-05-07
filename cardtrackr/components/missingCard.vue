@@ -43,6 +43,7 @@
                 });
             if (error) throw error;
             isCollected.value = true;
+            emit('added');
             if(collectedCard.value.pricing?.cardmarket?.avg30) {
                 price.value = collectedCard.value.pricing?.cardmarket?.avg30
             }
@@ -50,7 +51,7 @@
             console.log(error);
         }
     }
-        const emit = defineEmits(['removed']);
+        const emit = defineEmits(['removed', 'added']);
     
 
         const remove = async () => {

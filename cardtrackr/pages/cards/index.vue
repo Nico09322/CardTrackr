@@ -119,7 +119,7 @@ import CollectedSet from '~/components/collectedSet.vue';
         </div>
     </div>
     <div v-if="collection.length > 0" class="flex flex-col items-center mt-[1rem] gap-[1rem]">
-        <CollectedSet v-for="set in filteredCollection" :name="set.name" :icon="set.icon" :logo="set.logo" :cards="set.cards" @removed="handleReload"/>
+        <CollectedSet v-for="set in filteredCollection" :name="set.name" :icon="set.icon" :logo="set.logo" :cards="set.cards" @removed="handleReload" @added="handleReload"/>
 
     </div>
 </template>
